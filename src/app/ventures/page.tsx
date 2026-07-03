@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, Variants } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowRight, ExternalLink, Lock } from 'lucide-react';
 import AnimatedText from '@/components/ui/AnimatedText';
@@ -82,7 +82,7 @@ const collaboratedServices = [
 ];
 
 /* ============ Animation Variant ============ */
-const cardVariants = {
+const cardVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: (i: number) => ({
     opacity: 1,
