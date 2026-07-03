@@ -1,0 +1,236 @@
+/* ============================================
+   Ventures Page Styles
+   ============================================ */
+
+.hero {
+  padding-top: var(--space-32);
+  padding-bottom: var(--space-16);
+  background: var(--color-bg-hero);
+  position: relative;
+}
+
+.heroContent {
+  max-width: 100%;
+}
+
+.subheadline {
+  font-size: var(--text-xl);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
+  margin-top: var(--space-6);
+  font-weight: var(--weight-medium);
+  max-width: 800px;
+}
+
+/* ---- Toggle Styles ---- */
+.toggleContainer {
+  margin-top: var(--space-12);
+  display: flex;
+  align-items: flex-start;
+}
+
+.toggle {
+  display: inline-flex;
+  background: var(--color-bg-secondary);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 100px;
+  position: relative;
+  padding: var(--space-1);
+}
+
+.toggleBtn {
+  position: relative;
+  z-index: 2;
+  background: transparent;
+  border: none;
+  padding: var(--space-3) var(--space-6);
+  font-size: var(--text-base);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  border-radius: 100px;
+  transition: color 0.3s ease;
+  width: 220px;
+  text-align: center;
+}
+
+.toggleBtn.active {
+  color: #fff;
+}
+
+.togglePill {
+  position: absolute;
+  top: var(--space-1);
+  left: var(--space-1);
+  width: calc(50% - var(--space-1));
+  height: calc(100% - var(--space-2));
+  background: var(--color-accent);
+  border-radius: 100px;
+  box-shadow: 0 2px 8px rgba(30, 58, 95, 0.2);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1;
+}
+
+/* ---- Section Styles ---- */
+.venturesSection {
+  background: var(--color-bg-primary);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  padding: var(--space-16) 0 !important;
+  min-height: 60vh;
+}
+
+.sectionHeader {
+  margin-bottom: var(--space-12);
+  max-width: 700px;
+}
+
+.sectionSubtext {
+  font-size: var(--text-lg);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
+  margin-top: var(--space-4);
+}
+
+/* ---- Card Styles ---- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--space-8);
+}
+
+.card {
+  background: var(--color-bg-primary);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  transition: border-color 0.3s ease;
+}
+
+.card:hover {
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+.imagePlaceholder {
+  width: 100%;
+  height: 200px;
+  background: var(--color-bg-secondary);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+  color: var(--color-text-tertiary);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+}
+
+.cardContent {
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.cardTitle {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-3);
+}
+
+.cardDescription {
+  font-size: var(--text-base);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
+  flex-grow: 1;
+  margin-bottom: var(--space-8);
+}
+
+.cardFooter {
+  margin-top: auto;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  padding-top: var(--space-4);
+}
+
+.cardLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.cardLink:hover {
+  opacity: 0.8;
+}
+
+.cardDisabledLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-tertiary);
+  cursor: not-allowed;
+}
+
+.whatsappBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  background: #25D366; /* WhatsApp Green */
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.whatsappBtn:hover {
+  background: #1ebc5a;
+}
+
+/* ---- Closing CTA ---- */
+.closingCTA {
+  background: var(--color-accent-bg);
+  text-align: center;
+  padding: var(--space-16) 0 !important;
+}
+
+.closingContent {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.closingButtons {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-8);
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .toggle {
+    width: 100%;
+    display: flex;
+  }
+  .toggleBtn {
+    flex: 1;
+    padding: var(--space-3) var(--space-2);
+    font-size: var(--text-sm);
+  }
+}

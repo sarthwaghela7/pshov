@@ -1,0 +1,136 @@
+/* ============================================
+   About Page Styles
+   ============================================ */
+
+.hero {
+  padding-top: var(--space-32);
+  padding-bottom: var(--space-16);
+  background: var(--color-bg-hero);
+  position: relative;
+}
+
+.heroContent {
+  max-width: 100%;
+}
+
+.subheadline {
+  font-size: var(--text-xl);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
+  margin-top: var(--space-6);
+  font-weight: var(--weight-medium);
+}
+
+.contentSection {
+  background: var(--color-bg-primary);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  padding: var(--space-16) 0 !important;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: var(--space-16);
+}
+
+.sidebar {
+  position: sticky;
+  top: var(--space-32);
+  height: fit-content;
+}
+
+.sidebarTitle {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-4);
+}
+
+.mainContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+}
+
+.prose {
+  font-size: var(--text-lg);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
+}
+
+.prose p {
+  margin-bottom: var(--space-6);
+  max-width: 100%;
+}
+
+.prose p:last-child {
+  margin-bottom: 0;
+}
+
+.principlesList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  margin-top: var(--space-6);
+}
+
+.principle {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.principleTitle {
+  font-size: var(--text-xl);
+  font-weight: var(--weight-semibold);
+  color: var(--color-accent);
+}
+
+.noteBox {
+  margin-top: var(--space-8);
+  padding: var(--space-8);
+  background: var(--color-bg-secondary);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: var(--radius-md);
+}
+
+.noteQuote {
+  font-size: var(--text-lg);
+  font-weight: var(--weight-medium);
+  color: var(--color-text-primary);
+  font-style: italic;
+  line-height: var(--leading-relaxed);
+  border-left: 2px solid var(--color-accent);
+  padding-left: var(--space-4);
+}
+
+.closingCTA {
+  background: var(--color-accent-bg);
+  text-align: center;
+  padding: var(--space-16) 0 !important;
+}
+
+.closingContent {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.closingButtons {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-4);
+  margin-top: var(--space-8);
+  flex-wrap: wrap;
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
+  .sidebar {
+    position: static;
+  }
+}
