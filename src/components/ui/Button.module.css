@@ -11,7 +11,8 @@
   border-radius: 999px;
   cursor: pointer;
   overflow: hidden;
-  transition: all var(--duration-normal) var(--ease-out-expo);
+  isolation: isolate;
+  transition: border-color 200ms ease-out, box-shadow 200ms ease-out, color 200ms ease-out;
   text-decoration: none;
   white-space: nowrap;
 }
@@ -36,11 +37,6 @@
 .primary {
   background: var(--color-accent);
   color: #fff;
-}
-
-.primary:hover {
-  background: var(--color-accent-dark);
-  transform: translateY(-2px);
 }
 
 .secondary {
@@ -84,9 +80,7 @@
 }
 
 .glass:hover {
-  background: rgba(10, 10, 10, 0.85);
   border-color: rgba(255, 255, 255, 0.3);
-  transform: translateY(-2px);
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
@@ -101,9 +95,7 @@
 }
 
 .glassOutline:hover {
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.15));
   border-color: rgba(255, 255, 255, 0.8);
-  transform: translateY(-2px);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
 }
 
@@ -129,6 +121,8 @@
 .icon {
   display: flex;
   align-items: center;
+  position: relative;
+  z-index: 1;
 }
 
 .label {
@@ -136,23 +130,18 @@
   z-index: 1;
 }
 
-.shine {
+.sweep {
   position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.25),
-    transparent
-  );
-  transition: left var(--duration-slow) var(--ease-out-expo);
+  z-index: 0;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0.04));
+  transform: translateX(-101%);
+  transition: transform 200ms ease-out;
+  pointer-events: none;
 }
 
-.button:hover .shine {
-  left: 100%;
+.button:hover .sweep {
+  transform: translateX(0);
 }
 
 .button:disabled {

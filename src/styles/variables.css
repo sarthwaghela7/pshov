@@ -4,6 +4,11 @@
    ============================================ */
 
 :root {
+  /* Shared brand mark sizing */
+  --logo-width: clamp(220px, 24vw, 340px);
+  --logo-footer-width: min(320px, 100%);
+  --logo-mark-size: 42px;
+
   /* ---- Color Palette — Light Mode ---- */
 
   /* Base / Background */

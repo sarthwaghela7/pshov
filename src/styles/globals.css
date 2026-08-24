@@ -23,6 +23,11 @@ html {
   text-rendering: optimizeLegibility;
 }
 
+img,
+svg {
+  max-width: 100%;
+}
+
 body {
   font-family: var(--font-body);
   font-size: var(--text-base);
@@ -132,6 +137,12 @@ strong {
   position: relative;
 }
 
+@media (max-width: 768px) {
+  .publicMain {
+    padding-bottom: 4.75rem;
+  }
+}
+
 /* ---- Minimalist Card (formerly glass-card) ---- */
 
 .glass-card {
@@ -199,7 +210,6 @@ select {
 }
 
 input:focus,
-textarea:focus,
 select:focus {
   border-color: var(--color-accent);
   box-shadow: 0 0 0 3px var(--color-accent-subtle);

@@ -21,20 +21,19 @@
 
 .logo {
   display: flex;
-  align-items: baseline;
-  gap: var(--space-1);
+  align-items: center;
   text-decoration: none;
-  color: #f8fafc;
-  font-family: var(--font-heading);
-  font-size: var(--text-2xl);
-  font-weight: var(--weight-bold);
-  letter-spacing: var(--tracking-wide);
 }
 
-.logoMark {
-  color: var(--color-accent);
-  font-weight: var(--weight-extrabold);
-  font-size: var(--text-3xl);
+.logoImage {
+  display: block;
+  width: var(--logo-footer-width);
+  height: auto;
+  object-fit: contain;
+}
+
+.logo picture {
+  display: block;
 }
 
 .tagline {
@@ -113,9 +112,16 @@
   display: flex;
   align-items: flex-start;
   gap: var(--space-3);
+  min-width: 0;
   font-size: var(--text-sm);
   color: rgba(255, 255, 255, 0.6);
   line-height: var(--leading-relaxed);
+}
+
+.contactItem a,
+.contactItem span {
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .contactItem svg {

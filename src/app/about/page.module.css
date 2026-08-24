@@ -7,10 +7,29 @@
   padding-bottom: var(--space-16);
   background: var(--color-bg-hero);
   position: relative;
+  overflow: hidden;
 }
 
 .heroContent {
   max-width: 100%;
+  will-change: transform, opacity;
+}
+
+.heroTitle {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.24em;
+}
+
+.heroWordMask {
+  display: inline-block;
+  overflow: hidden;
+  padding-bottom: 0.1em;
+  margin-bottom: -0.1em;
+}
+
+.heroWordMask > span {
+  display: inline-block;
 }
 
 .subheadline {
@@ -25,6 +44,11 @@
   background: var(--color-bg-primary);
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
   padding: var(--space-16) 0 !important;
+  position: relative;
+}
+
+.sectionProgress {
+  display: none;
 }
 
 .grid {
@@ -76,9 +100,34 @@
 }
 
 .principle {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
+  padding: var(--space-6) 0 var(--space-6) var(--space-12);
+  border-top: 1px solid rgba(30, 58, 95, 0.12);
+  transition: background 220ms var(--ease-out-expo), padding-left 220ms var(--ease-out-expo);
+}
+
+.principle:last-child {
+  border-bottom: 1px solid rgba(30, 58, 95, 0.12);
+}
+
+.principle:hover {
+  background: linear-gradient(90deg, var(--color-accent-subtle), transparent);
+  padding-left: calc(var(--space-12) + var(--space-2));
+}
+
+.principleNumber {
+  position: absolute;
+  top: var(--space-6);
+  left: 0;
+  font-family: var(--font-heading);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-widest);
+  color: var(--color-accent-light);
+  will-change: transform, opacity;
 }
 
 .principleTitle {
@@ -88,14 +137,31 @@
 }
 
 .noteBox {
+  position: relative;
   margin-top: var(--space-8);
   padding: var(--space-8);
-  background: var(--color-bg-secondary);
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  background: linear-gradient(135deg, var(--color-bg-secondary), var(--color-accent-bg));
+  border: 1px solid rgba(30, 58, 95, 0.12);
   border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.noteBox::before {
+  content: '\201C';
+  position: absolute;
+  top: -0.24em;
+  right: 0.1em;
+  font-family: Georgia, serif;
+  font-size: clamp(7rem, 13vw, 12rem);
+  line-height: 1;
+  color: var(--color-accent);
+  opacity: 0.07;
+  pointer-events: none;
 }
 
 .noteQuote {
+  position: relative;
+  z-index: 1;
   font-size: var(--text-lg);
   font-weight: var(--weight-medium);
   color: var(--color-text-primary);
@@ -103,12 +169,29 @@
   line-height: var(--leading-relaxed);
   border-left: 2px solid var(--color-accent);
   padding-left: var(--space-4);
+  will-change: transform, opacity;
+}
+
+.noteQuote + .noteQuote {
+  margin-top: var(--space-6);
 }
 
 .closingCTA {
   background: var(--color-accent-bg);
   text-align: center;
   padding: var(--space-16) 0 !important;
+  overflow: hidden;
+}
+
+.transitionLine {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: min(12rem, 30vw);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
+  transform: translateX(-50%);
+  transform-origin: center;
 }
 
 .closingContent {
@@ -132,5 +215,30 @@
 
   .sidebar {
     position: static;
+  }
+
+  .sectionProgress {
+    left: var(--section-padding-x);
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .principle:hover {
+    background: transparent;
+    padding-left: var(--space-12);
+  }
+}
+
+@media (max-width: 768px) {
+  .heroTitle {
+    gap: 0.16em;
+  }
+
+  .sectionProgress {
+    display: none;
+  }
+
+  .principle {
+    padding-left: var(--space-10);
   }
 }
