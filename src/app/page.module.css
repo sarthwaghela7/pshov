@@ -633,6 +633,12 @@
 }
 
 @media (max-width: 768px) {
+  .viewAll {
+    flex-wrap: nowrap;
+    column-gap: 0;
+    row-gap: 0;
+  }
+
   .hero {
     min-height: auto;
   }

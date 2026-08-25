@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, Users, LineChart, Coins, Mail, MessageCircle } from 'lucide-react';
 import emailjs from '@emailjs/browser';
+import { useLocation } from 'react-router-dom';
 import AnimatedText from '@/components/ui/AnimatedText';
 import SectionLabel from '@/components/ui/SectionLabel';
 import Button from '@/components/ui/Button';
@@ -41,6 +42,7 @@ export default function ContactPage() {
   const [status, setStatus] = useState('');
   const formRef = useRef(null);
   const pageRef = useRef(null);
+  const location = useLocation();
 
   const [activeVentures, setActiveVentures] = useState([]);
 
@@ -49,13 +51,13 @@ export default function ContactPage() {
   useEffect(() => {
     getVentures().then((ventures) => setActiveVentures(ventures.filter((venture) => venture.is_active !== false)));
     getContactSettings().then(setContactSettings);
-    const params = new URLSearchParams(window.location.search);
+    const params = new URLSearchParams(location.search);
     const venture = params.get('venture');
     if (venture) {
       setSelectedVenture(venture);
       setFormIntent('invest');
     }
-  }, []);
+  }, [location.search]);
 
   const handlePillarClick = (intent) => {
     setFormIntent(intent);

@@ -31,7 +31,7 @@ function PageTitle() {
 
 export default function App() {
   const location = useLocation();
-  const isAdmin = window.location.pathname.startsWith('/admin');
+  const isAdmin = location.pathname.startsWith('/admin');
 
   if (isAdmin) {
     return <><PageTitle /><Routes><Route path="/admin" element={<AdminPanel />} /><Route path="*" element={<Navigate to="/admin" replace />} /></Routes></>;

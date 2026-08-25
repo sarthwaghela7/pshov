@@ -9,4 +9,12 @@ export default defineConfig({
       '@': path.resolve(process.cwd(), 'src'),
     },
   },
+  build: {
+    rollupOptions: {
+      input: {
+        site: path.resolve(process.cwd(), 'index.html'),
+        admin: path.resolve(process.cwd(), 'admin/index.html'),
+      },
+    },
+  },
 });

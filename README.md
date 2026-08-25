@@ -11,7 +11,7 @@ npm run dev
 
 Open http://localhost:5173 in your browser.
 
-The application uses React Router for `/`, `/about`, `/ventures`, and `/contact`. The main entrypoint is `src/main.jsx`.
+The application uses hash-based React Router routes such as `/#/`, `/#/about`, `/#/ventures`, and `/#/contact`. This keeps direct refreshes working on static hosts without server-side route rewrites. The admin panel is also available directly at `/admin`. The main entrypoint is `src/main.jsx`.
 
 ## Scripts
 
@@ -21,7 +21,7 @@ npm run preview
 npm run lint
 ```
 
-For production hosting, configure the host to serve `index.html` as the fallback for client-side routes.
+For production hosting, serve the generated `dist` directory.
 
 ## Contact delivery
 
