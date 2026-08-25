@@ -25,12 +25,18 @@ For production hosting, configure the host to serve `index.html` as the fallback
 
 ## Contact delivery
 
-Run the additions in `supabase/schema.sql` in the Supabase SQL editor. For direct email delivery from the contact form, add these Vite variables to `.env` from an EmailJS template configured with `to_email`:
+Copy `.env.example` to `.env`, then add the values from your Supabase project. Vite exposes only variables beginning with `VITE_`, so use these names exactly and restart the dev server after changing them:
 
 ```env
+VITE_SUPABASE_URL=https://your-project.supabase.co
+VITE_SUPABASE_PUBLISHABLE_KEY=your_supabase_publishable_key
+VITE_SUPABASE_STORAGE_BUCKET=website-images
+
 VITE_EMAILJS_SERVICE_ID=your_service_id
 VITE_EMAILJS_TEMPLATE_ID=your_template_id
 VITE_EMAILJS_PUBLIC_KEY=your_public_key
 ```
+
+Run the additions in `supabase/schema.sql` in the Supabase SQL editor before using the admin panel or dynamic site content. The EmailJS values are optional; configure an EmailJS template with `to_email` for direct contact-form delivery.
 
 Without EmailJS variables, the email action opens the visitor's configured mail app. WhatsApp always opens a prefilled message addressed to the admin number saved in the Contact details tab.

@@ -524,6 +524,9 @@
   margin-top: var(--space-10);
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
+  column-gap: var(--space-8);
+  row-gap: var(--space-4);
 }
 
 /* ---- Founder Strip ---- */

@@ -68,15 +68,25 @@ export default function ContactPage() {
     event.preventDefault();
     setStatus('Sending...');
     const form = event.currentTarget.form || event.currentTarget;
-    const values = Object.fromEntries(new FormData(form).entries());
+    const formData = new FormData(form);
+    const values = Object.fromEntries(formData.entries());
+    const selectedWorkVentures = formData.getAll('work_ventures');
+    const selectedGrowthNeeds = formData.getAll('growth_needs');
     const message = [
       `New enquiry from ${values.name}`,
       `Email: ${values.email}`,
       `Phone: ${values.phone}`,
       `Interest: ${values.intent}`,
       `Venture: ${values.venture || 'General enquiry'}`,
+      values.invest_interest && `Investment interest: ${values.invest_interest}`,
+      values.work_role && `Role sought: ${values.work_role}`,
+      selectedWorkVentures.length && `Interested ventures: ${selectedWorkVentures.join(', ')}`,
+      values.work_link && `Portfolio: ${values.work_link}`,
+      values.grow_business && `Business: ${values.grow_business}`,
+      values.grow_stage && `Business stage: ${values.grow_stage}`,
+      selectedGrowthNeeds.length && `Growth needs: ${selectedGrowthNeeds.join(', ')}`,
       `Message: ${values.message || values.investAbout || values.workSkills || values.growDesc || 'No additional message'}`,
-    ].join('\n');
+    ].filter(Boolean).join('\n');
 
     if (method === 'whatsapp') {
       window.open(createWhatsAppUrl(contactSettings.primary_whatsapp, message), '_blank', 'noopener,noreferrer');
@@ -248,7 +258,7 @@ export default function ContactPage() {
                     
                     <div className={styles.formGroup}>
                       <label htmlFor="investInterest">I am interested in:</label>
-                      <select id="investInterest">
+                      <select id="investInterest" name="invest_interest">
                         <option value="in-house">An In-House Venture</option>
                         <option value="collaborated">A Collaborated Service</option>
                         <option value="both">Both</option>
@@ -278,7 +288,7 @@ export default function ContactPage() {
                   >
                     <div className={styles.formGroup}>
                       <label htmlFor="workRole">I am looking for:</label>
-                      <select id="workRole">
+                      <select id="workRole" name="work_role">
                         <option value="internship">Internship</option>
                         <option value="part-time">Part-Time Role</option>
                         <option value="full-time">Full-Time Role</option>
@@ -289,10 +299,10 @@ export default function ContactPage() {
                     <div className={styles.formGroup}>
                       <label>Ventures I am most interested in:</label>
                       <div className={styles.checkboxGrid}>
-                        {activeVentures.map((v) => (
-                          <label key={v} className={styles.checkboxLabel}>
-                            <input type="checkbox" value={v} />
-                            <span className={styles.checkboxText}>{v}</span>
+                        {activeVentures.map((venture) => (
+                          <label key={venture.id} className={styles.checkboxLabel}>
+                            <input name="work_ventures" type="checkbox" value={venture.name} />
+                            <span className={styles.checkboxText}>{venture.name}</span>
                           </label>
                         ))}
                       </div>
@@ -305,7 +315,7 @@ export default function ContactPage() {
 
                     <div className={styles.formGroup}>
                       <label htmlFor="workLink">LinkedIn profile or portfolio link (Optional)</label>
-                      <input type="url" id="workLink" placeholder="https://linkedin.com/in/..." />
+                      <input name="work_link" type="url" id="workLink" placeholder="https://linkedin.com/in/..." />
                     </div>
                   </motion.div>
                 )}
@@ -321,12 +331,12 @@ export default function ContactPage() {
                   >
                     <div className={styles.formGroup}>
                       <label htmlFor="growBusiness">Business Name *</label>
-                      <input type="text" id="growBusiness" required placeholder="Your Company Ltd" />
+                      <input name="grow_business" type="text" id="growBusiness" required placeholder="Your Company Ltd" />
                     </div>
 
                     <div className={styles.formGroup}>
                       <label htmlFor="growStage">Stage of Business:</label>
-                      <select id="growStage">
+                      <select id="growStage" name="grow_stage">
                         <option value="starting">Just Starting Out</option>
                         <option value="early">Early Stage</option>
                         <option value="growing">Growing</option>
@@ -339,7 +349,7 @@ export default function ContactPage() {
                       <div className={styles.checkboxGrid}>
                         {['Digital Presence', 'Marketing', 'Operations', 'Strategy', 'Business Development', 'Not Sure Yet'].map((need) => (
                           <label key={need} className={styles.checkboxLabel}>
-                            <input type="checkbox" value={need} />
+                            <input name="growth_needs" type="checkbox" value={need} />
                             <span className={styles.checkboxText}>{need}</span>
                           </label>
                         ))}
