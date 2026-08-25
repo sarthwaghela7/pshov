@@ -253,7 +253,7 @@ export default function HomePage() {
               transition={prefersReducedMotion ? { delay: 1.65, duration: 0.3 } : { delay: 1.65, type: 'spring', stiffness: 100, damping: 15 }}
             >
               <Link to="/ventures">
-                <Button magnetic variant="glass" size="lg" icon={<ArrowRight size={18} />}>
+                <Button magnetic variant="glass" size="lg" className={styles.mobileHeroCtaVentures} icon={<ArrowRight size={18} />}>
                   Explore Ventures
                 </Button>
               </Link>
@@ -264,7 +264,7 @@ export default function HomePage() {
               transition={prefersReducedMotion ? { delay: 1.74, duration: 0.3 } : { delay: 1.74, type: 'spring', stiffness: 100, damping: 15 }}
             >
               <Link to="/ventures#services">
-                <Button magnetic variant="glassOutline" size="lg">
+                <Button magnetic variant="glassOutline" size="lg" className={styles.mobileHeroCtaServices}>
                   Explore Services
                 </Button>
               </Link>
@@ -275,7 +275,7 @@ export default function HomePage() {
               transition={prefersReducedMotion ? { delay: 1.83, duration: 0.3 } : { delay: 1.83, type: 'spring', stiffness: 100, damping: 15 }}
             >
               <Link to="/contact">
-                <Button magnetic variant="glassOutline" size="lg">
+                <Button magnetic variant="glassOutline" size="lg" className={styles.mobileHeroCtaInvolved}>
                   Get Involved
                 </Button>
               </Link>
