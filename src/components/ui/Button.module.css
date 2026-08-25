@@ -149,3 +149,20 @@
   cursor: not-allowed;
   transform: none !important;
 }
+
+@media (max-width: 480px) {
+  .lg {
+    font-size: var(--text-sm);
+    padding: var(--space-3) var(--space-6);
+    width: 100%;
+  }
+
+  .md {
+    padding: var(--space-3) var(--space-5);
+  }
+
+  .button {
+    white-space: normal;
+    text-align: center;
+  }
+}

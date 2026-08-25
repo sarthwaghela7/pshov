@@ -291,6 +291,11 @@
 }
 
 @media (max-width: 768px) {
+  .hero {
+    padding-top: var(--space-24);
+    padding-bottom: var(--space-12);
+  }
+
   .pillarsGrid {
     grid-template-columns: 1fr;
   }
@@ -308,5 +313,37 @@
 
   .formActions button {
     width: 100%;
+  }
+
+  .pillarsSection,
+  .formSection {
+    padding: var(--space-12) 0 !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding-top: var(--space-20);
+    padding-bottom: var(--space-8);
+  }
+
+  .subheadline {
+    font-size: var(--text-base);
+  }
+
+  .pillarCard {
+    padding: var(--space-6);
+  }
+
+  .formContainer {
+    padding: var(--space-4);
+  }
+
+  .formHeader {
+    margin-bottom: var(--space-6);
+  }
+
+  .checkboxGrid {
+    grid-template-columns: 1fr;
   }
 }

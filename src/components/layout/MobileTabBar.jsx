@@ -4,8 +4,8 @@ import styles from './MobileTabBar.module.css';
 
 const tabs = [
   { href: '/', label: 'Home', icon: House },
-  { href: '/ventures', label: 'Ownership Ventures', icon: Layers },
-  { href: '/services', label: 'Collaborated Services', icon: BriefcaseBusiness },
+  { href: '/ventures', label: 'Ventures', icon: Layers },
+  { href: '/services', label: 'Services', icon: BriefcaseBusiness },
 ];
 
 export default function MobileTabBar() {

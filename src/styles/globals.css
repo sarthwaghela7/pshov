@@ -280,7 +280,7 @@ textarea {
 
 @media (max-width: 768px) {
   .section {
-    padding-top: clamp(2.5rem, 2rem + 3vw, 4rem);
-    padding-bottom: clamp(2.5rem, 2rem + 3vw, 4rem);
+    padding-top: clamp(2rem, 1.5rem + 4vw, 3rem);
+    padding-bottom: clamp(2rem, 1.5rem + 4vw, 3rem);
   }
 }
