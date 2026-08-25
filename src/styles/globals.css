@@ -284,3 +284,11 @@ textarea {
     padding-bottom: clamp(2rem, 1.5rem + 4vw, 3rem);
   }
 }
+
+/* Prevent long nowrap headings from forcing horizontal page overflow on mobile */
+@media (max-width: 640px) {
+  .animated-text-nowrap {
+    flex-wrap: wrap !important;
+    white-space: normal !important;
+  }
+}

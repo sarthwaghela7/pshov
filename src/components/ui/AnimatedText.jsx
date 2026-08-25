@@ -28,7 +28,7 @@ export default function AnimatedText({
 
   return (
     <Tag
-      className={`${className} ${gradient ? 'gradient-text' : ''}`}
+      className={`${className} ${gradient ? 'gradient-text' : ''} ${nowrap ? 'animated-text-nowrap' : ''}`}
       style={{ display: 'flex', flexWrap: nowrap ? 'nowrap' : 'wrap', justifyContent: centered ? 'center' : 'flex-start', gap: animation === 'letters' ? 0 : '0.3em', whiteSpace: nowrap ? 'nowrap' : 'normal' }}
       ref={ref}
     >

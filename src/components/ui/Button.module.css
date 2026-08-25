@@ -12,7 +12,7 @@
   cursor: pointer;
   overflow: hidden;
   isolation: isolate;
-  transition: border-color 200ms ease-out, box-shadow 200ms ease-out, color 200ms ease-out;
+  transition: border-color 200ms ease-out, box-shadow 200ms ease-out, color 200ms ease-out, background 200ms ease-out;
   text-decoration: none;
   white-space: nowrap;
 }
@@ -70,33 +70,85 @@
   background: var(--color-accent-subtle);
 }
 
+/* ---- Liquid Glass ----
+   A refractive, layered glass look (à la iOS "Liquid Glass"):
+   a soft tinted body, a bright specular highlight arc across the
+   top, and a thin dark inner edge at the bottom for depth. */
 .glass {
-  background: rgba(10, 10, 10, 0.7);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  position: relative;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.04) 42%, rgba(0, 0, 0, 0.22) 100%),
+    rgba(20, 20, 20, 0.45);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
   color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.25),
+    inset 0 0 24px rgba(255, 255, 255, 0.04);
+}
+
+.glass::before {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  left: 6%;
+  right: 6%;
+  height: 55%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 100%);
+  opacity: 0.55;
+  border-radius: 0 0 100% 100% / 0 0 100% 100%;
+  pointer-events: none;
 }
 
 .glass:hover {
-  border-color: rgba(255, 255, 255, 0.3);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.45);
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.36),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.3),
+    inset 0 0 28px rgba(255, 255, 255, 0.06);
 }
 
 .glassOutline {
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.05));
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  position: relative;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.24) 0%, rgba(255, 255, 255, 0.05) 45%, rgba(0, 0, 0, 0.1) 100%),
+    rgba(10, 10, 10, 0.1);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
   color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.12);
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4); /* Ensures text readability over any light photo */
 }
 
+.glassOutline::before {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  left: 8%;
+  right: 8%;
+  height: 50%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0) 100%);
+  opacity: 0.6;
+  border-radius: 0 0 100% 100% / 0 0 100% 100%;
+  pointer-events: none;
+}
+
 .glassOutline:hover {
-  border-color: rgba(255, 255, 255, 0.8);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  border-color: rgba(255, 255, 255, 0.85);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.75),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.15);
 }
 
 /* Modifiers */

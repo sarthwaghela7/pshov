@@ -429,12 +429,45 @@
     font-size: var(--text-base);
   }
 
+  .toggle {
+    flex-direction: column;
+    border-radius: var(--radius-lg);
+    background: transparent;
+    border: none;
+    gap: var(--space-2);
+  }
+
+  .toggleBtn {
+    width: 100%;
+    padding: var(--space-3);
+    background: var(--color-bg-secondary);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: var(--radius-md);
+  }
+
+  .toggleBtn.active {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+
+  .togglePill {
+    display: none;
+  }
+
+  .sectionHeader {
+    margin-bottom: var(--space-8);
+  }
+
   .cardContent {
     padding: var(--space-6) var(--space-5);
   }
 
   .cardTitle {
     font-size: var(--text-xl);
+  }
+
+  .cardDescription {
+    margin-bottom: var(--space-6);
   }
 
   .imagePlaceholder {
