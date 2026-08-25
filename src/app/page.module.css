@@ -656,11 +656,11 @@
   }
 
   .mobileHeroCtaServices {
-    background: var(--color-gold) !important;
+    background: var(--color-accent) !important;
   }
 
   .mobileHeroCtaInvolved {
-    background: var(--color-teal) !important;
+    background: var(--color-accent) !important;
   }
 
   .viewAll {
@@ -782,34 +782,84 @@
 }
 
 @media (max-width: 480px) {
+  .hero {
+    min-height: 0;
+  }
+
   .heroContainer {
-    padding-top: 6rem;
-    padding-bottom: 6rem;
+    height: auto;
+    min-height: 0;
+    padding: 5.5rem var(--space-5) var(--space-8);
+  }
+
+  .heroContentGrid {
+    grid-template-rows: auto auto auto;
+    row-gap: var(--space-5);
+  }
+
+  .heroLeft,
+  .heroRight {
+    max-width: 22rem;
   }
 
   .heroImageWrapper {
-    height: min(38vh, 18rem);
+    width: min(100%, 19rem);
+    height: 15.5rem;
+    margin: 0;
+    padding: var(--space-3) var(--space-4) 0;
+    overflow: hidden;
+    border: 1px solid rgba(30, 58, 95, 0.1);
+    border-radius: 1.5rem 1.5rem 0.75rem 0.75rem;
+    background:
+      radial-gradient(circle at 50% 20%, rgba(45, 90, 142, 0.16), transparent 58%),
+      linear-gradient(180deg, #f4f7fb 0%, #e8eff8 100%);
+    box-shadow: 0 16px 32px -24px rgba(15, 36, 64, 0.55);
+  }
+
+  .heroImage {
+    object-position: bottom center;
+    transform: scale(0.94);
+    transform-origin: bottom center;
+  }
+
+  .heroAmbientGlow {
+    width: 86%;
+    left: 7%;
+    bottom: 4%;
+    opacity: 0.2;
+    filter: blur(32px);
   }
 
   .heroTitle {
-    font-size: clamp(2.4rem, 13vw, 3.2rem);
+    font-size: clamp(2.2rem, 10vw, 2.8rem);
+    line-height: 0.98;
   }
 
   .heroRightTitle {
-    font-size: clamp(1.6rem, 8vw, 2rem);
+    font-size: clamp(1.45rem, 6.5vw, 1.8rem);
   }
 
   .heroSub {
     font-size: var(--text-base);
+    margin-bottom: 0;
   }
 
   .heroCenterCTAs {
     flex-direction: column;
     width: 100%;
+    gap: var(--space-3);
+    padding: var(--space-2) 0 0;
   }
 
   .heroCenterCTAs > * {
     width: 100%;
+  }
+
+  .mobileHeroCtaVentures,
+  .mobileHeroCtaServices,
+  .mobileHeroCtaInvolved {
+    width: 100%;
+    min-height: 2.75rem;
   }
 
   .pillars,
