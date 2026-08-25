@@ -11,7 +11,7 @@ npm run dev
 
 Open http://localhost:5173 in your browser.
 
-The application uses hash-based React Router routes such as `/#/`, `/#/about`, `/#/ventures`, and `/#/contact`. This keeps direct refreshes working on static hosts without server-side route rewrites. The admin panel is also available directly at `/admin`. The main entrypoint is `src/main.jsx`.
+The application uses hash-based React Router routes such as `/#/`, `/#/about`, `/#/ventures`, and `/#/contact`. This keeps direct refreshes working on static hosts without server-side route rewrites. Plain route URLs for `/about`, `/ventures`, `/services`, `/contact`, and `/admin` are also included in the production build. The main entrypoint is `src/main.jsx`.
 
 ## Scripts
 
