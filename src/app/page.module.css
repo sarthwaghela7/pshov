@@ -9,6 +9,9 @@
   display: flex;
   align-items: center;
   overflow: hidden;
+  --cursor-x: 50%;
+  --cursor-y: 48%;
+  --cursor-opacity: 0;
 }
 
 .heroBackground {
@@ -30,6 +33,99 @@
   background-size: 64px 64px;
   -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000 0%, transparent 75%);
   mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000 0%, transparent 75%);
+}
+
+.heroCursorLight {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: var(--cursor-opacity);
+  background-image:
+    radial-gradient(circle at var(--cursor-x) var(--cursor-y), rgba(255, 255, 255, 0.4), transparent 5rem),
+    radial-gradient(rgba(30, 58, 95, 0.34) 1px, transparent 1.5px);
+  background-size: auto, 18px 18px;
+  -webkit-mask-image: radial-gradient(circle 12rem at var(--cursor-x) var(--cursor-y), #000 0%, transparent 82%);
+  mask-image: radial-gradient(circle 12rem at var(--cursor-x) var(--cursor-y), #000 0%, transparent 82%);
+  transition: opacity 400ms ease-out;
+  pointer-events: none;
+}
+
+.sectionOrbBlue,
+.sectionOrbGold {
+  position: absolute;
+  width: clamp(9rem, 19vw, 19rem);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.82;
+}
+
+.sectionOrbBlue {
+  top: -42%;
+  left: -17%;
+  background: var(--color-accent-light);
+}
+
+.sectionOrbGold {
+  right: -17%;
+  bottom: -46%;
+  background: var(--color-gold-light);
+}
+
+.statsStrip .sectionOrbBlue {
+  top: -65%;
+  left: 14%;
+  opacity: 0.48;
+}
+
+.statsStrip .sectionOrbGold {
+  right: 4%;
+  bottom: -70%;
+  opacity: 0.55;
+}
+
+.pillars .sectionOrbBlue {
+  top: 18%;
+  left: -22%;
+}
+
+.pillars .sectionOrbGold {
+  top: -28%;
+  right: -14%;
+  bottom: auto;
+}
+
+.ventures .sectionOrbBlue {
+  top: auto;
+  bottom: -42%;
+  left: -16%;
+}
+
+.ventures .sectionOrbGold {
+  top: 8%;
+  right: -20%;
+  bottom: auto;
+}
+
+.founder .sectionOrbBlue {
+  top: -26%;
+  left: 34%;
+}
+
+.founder .sectionOrbGold {
+  right: -16%;
+  bottom: -26%;
+}
+
+.closingCTA .sectionOrbBlue {
+  top: -58%;
+  left: -12%;
+}
+
+.closingCTA .sectionOrbGold {
+  right: 12%;
+  bottom: -62%;
 }
 
 .heroContainer {
@@ -255,7 +351,7 @@
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: var(--space-4);
+  gap: var(--space-3);
   z-index: 10;
   pointer-events: auto;
   width: max-content;
@@ -263,13 +359,57 @@
   justify-content: center;
   flex-wrap: wrap;
   flex-shrink: 0;
-  padding: var(--space-3) var(--space-4);
-  background: rgba(255, 255, 255, 0.55);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border: 1px solid rgba(30, 58, 95, 0.1);
+  padding: 0;
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border: none;
   border-radius: var(--radius-full);
-  box-shadow: var(--shadow-lg);
+  box-shadow: none;
+}
+
+.mobileHeroCtaVentures,
+.mobileHeroCtaServices,
+.mobileHeroCtaInvolved {
+  height: 2.75rem;
+  padding: 0 var(--space-5);
+  font-size: 0.9rem;
+  font-weight: var(--weight-semibold);
+  letter-spacing: -0.02em;
+  border: 1px solid rgba(255, 255, 255, 0.38);
+  box-shadow: 0 10px 24px rgba(15, 36, 64, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+
+.mobileHeroCtaVentures {
+  width: 11.9rem;
+  background: linear-gradient(110deg, #535353 0%, #181924 100%);
+}
+
+.mobileHeroCtaVentures:hover {
+  background: linear-gradient(110deg, #626262 0%, #222533 100%);
+  box-shadow: 0 14px 28px rgba(15, 36, 64, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.mobileHeroCtaServices {
+  width: 10.6rem;
+  background: linear-gradient(110deg, #201a1e 0%, #091633 48%, #b2664b 100%);
+}
+
+.mobileHeroCtaServices:hover {
+  background: linear-gradient(110deg, #2a2025 0%, #102044 48%, #c87858 100%);
+  box-shadow: 0 14px 28px rgba(15, 36, 64, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.mobileHeroCtaInvolved {
+  width: 8.8rem;
+  background: linear-gradient(110deg, #4b3d3a 0%, #a7a9ac 52%, #dedede 100%);
+  color: var(--color-text-primary);
+  border-color: rgba(17, 24, 39, 0.12);
+}
+
+.mobileHeroCtaInvolved:hover {
+  background: linear-gradient(110deg, #5b4b47 0%, #b8babd 52%, #f0f0f0 100%);
+  box-shadow: 0 14px 28px rgba(15, 36, 64, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 
 /* ---- Stats Strip ---- */
@@ -292,6 +432,7 @@
 
 .statsInner {
   position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: var(--space-6);
@@ -510,8 +651,15 @@
 
 /* ---- Ventures Snapshot ---- */
 .ventures {
+  position: relative;
   background: var(--color-bg-primary);
   padding: var(--space-24) 0;
+}
+
+.ventures > .container,
+.founderInner {
+  position: relative;
+  z-index: 1;
 }
 
 .venturesSub {
@@ -890,19 +1038,16 @@
   .mobileHeroCtaVentures,
   .mobileHeroCtaServices,
   .mobileHeroCtaInvolved {
-    color: #fff !important;
-    border: 1px solid transparent !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    box-shadow: var(--shadow-sm) !important;
-    text-shadow: none !important;
-    background: var(--color-accent) !important;
+    min-width: 0;
+    min-height: 3.5rem;
+    width: 100%;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    text-shadow: none;
   }
 
-  .mobileHeroCtaVentures::before,
-  .mobileHeroCtaServices::before,
-  .mobileHeroCtaInvolved::before {
-    display: none;
+  .mobileHeroCtaInvolved {
+    color: var(--color-text-primary) !important;
   }
 
   .viewAll {

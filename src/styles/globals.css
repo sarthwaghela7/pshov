@@ -274,6 +274,7 @@ textarea {
   .three-canvas-container {
     display: none;
   }
+
 }
 
 /* ---- Responsive ---- */
@@ -283,6 +284,7 @@ textarea {
     padding-top: clamp(2rem, 1.5rem + 4vw, 3rem);
     padding-bottom: clamp(2rem, 1.5rem + 4vw, 3rem);
   }
+
 }
 
 /* Prevent long nowrap headings from forcing horizontal page overflow on mobile */

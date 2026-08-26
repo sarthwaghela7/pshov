@@ -9,7 +9,6 @@ import {
   Gem,
   Cog,
   Sprout,
-  Sparkles,
   Building2,
   Layers,
   Star,
@@ -156,11 +155,15 @@ export default function HomePage() {
   const handleHeroPointerMove = (event) => {
     if (!isDesktopPointer || prefersReducedMotion) return;
     const bounds = event.currentTarget.getBoundingClientRect();
+    event.currentTarget.style.setProperty('--cursor-x', `${event.clientX - bounds.left}px`);
+    event.currentTarget.style.setProperty('--cursor-y', `${event.clientY - bounds.top}px`);
+    event.currentTarget.style.setProperty('--cursor-opacity', '1');
     imageMouseX.set(((event.clientX - bounds.left) / bounds.width - 0.5) * 6);
     imageMouseY.set(((event.clientY - bounds.top) / bounds.height - 0.5) * 4);
   };
 
   const resetHeroPointer = () => {
+    heroRef.current?.style.setProperty('--cursor-opacity', '0');
     imageMouseX.set(0);
     imageMouseY.set(0);
   };
@@ -171,7 +174,7 @@ export default function HomePage() {
       <section ref={heroRef} className={styles.hero} onMouseMove={handleHeroPointerMove} onMouseLeave={resetHeroPointer}>
         {/* Background Gradient */}
         <div className={styles.heroBackground} />
-
+        <div className={styles.heroCursorLight} aria-hidden="true" />
         {/* Content Container */}
         <div className={`${styles.heroContainer} container`}>
           
@@ -236,15 +239,6 @@ export default function HomePage() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.2, duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
               />
-              <motion.div
-                className={styles.heroFloatBadge}
-                initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 16, scale: 0.9 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ delay: 1.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              >
-                <Sparkles size={14} />
-                <span>Building in public</span>
-              </motion.div>
             </motion.div>
 
             {/* RIGHT: Secondary Info & Secondary CTA */}
@@ -278,7 +272,7 @@ export default function HomePage() {
               transition={prefersReducedMotion ? { delay: 1.65, duration: 0.3 } : { delay: 1.65, type: 'spring', stiffness: 100, damping: 15 }}
             >
               <Link to="/ventures">
-                <Button magnetic variant="glass" size="lg" className={styles.mobileHeroCtaVentures} icon={<ArrowRight size={18} />}>
+                <Button magnetic variant="glass" size="lg" className={styles.mobileHeroCtaVentures}>
                   Explore Ventures
                 </Button>
               </Link>
@@ -311,6 +305,8 @@ export default function HomePage() {
 
       {/* ============ STATS STRIP ============ */}
       <section className={styles.statsStrip}>
+        <div className={styles.sectionOrbBlue} aria-hidden="true" />
+        <div className={styles.sectionOrbGold} aria-hidden="true" />
         <div className={`${styles.statsInner} container`}>
           {stats.map((stat, i) => (
             <Reveal key={stat.label} delay={i * 0.08} className={styles.statItemReveal}>
@@ -328,7 +324,8 @@ export default function HomePage() {
 
       {/* ============ THREE PILLARS ============ */}
       <section className={`${styles.pillars} section`} ref={pillarsRef}>
-        <div className={styles.pillarsBgShape} aria-hidden="true" />
+        <div className={styles.sectionOrbBlue} aria-hidden="true" />
+        <div className={styles.sectionOrbGold} aria-hidden="true" />
         <div className="container">
           <motion.div
             initial={{ opacity: 0, x: -72 }}
@@ -374,6 +371,8 @@ export default function HomePage() {
 
       {/* ============ VENTURES SNAPSHOT ============ */}
       <section className={`${styles.ventures} section`} ref={venturesRef}>
+        <div className={styles.sectionOrbBlue} aria-hidden="true" />
+        <div className={styles.sectionOrbGold} aria-hidden="true" />
         <div className="container">
           <SectionLabel>The Portfolio</SectionLabel>
           <AnimatedText
@@ -460,6 +459,8 @@ export default function HomePage() {
 
       {/* ============ FOUNDER STRIP ============ */}
       <section className={`${styles.founder} section`} ref={founderRef}>
+        <div className={styles.sectionOrbBlue} aria-hidden="true" />
+        <div className={styles.sectionOrbGold} aria-hidden="true" />
         <Reveal>
         <div className="container">
           <div className={styles.founderInner}>
@@ -521,6 +522,8 @@ export default function HomePage() {
 
       {/* ============ CLOSING CTA ============ */}
       <section className={`${styles.closingCTA} section`} ref={ctaRef}>
+        <div className={styles.sectionOrbBlue} aria-hidden="true" />
+        <div className={styles.sectionOrbGold} aria-hidden="true" />
         <Reveal>
         <div className="container" style={{ textAlign: 'center' }}>
           <AnimatedText
