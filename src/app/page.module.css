@@ -198,28 +198,6 @@
   pointer-events: none;
 }
 
-.heroFloatBadge {
-  position: absolute;
-  top: 22%;
-  right: -6%;
-  z-index: 4;
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-2) var(--space-4);
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(30, 58, 95, 0.14);
-  border-radius: var(--radius-full);
-  box-shadow: var(--shadow-md);
-  font-size: var(--text-xs);
-  font-weight: var(--weight-semibold);
-  color: var(--color-accent);
-  white-space: nowrap;
-  pointer-events: none;
-}
-
 @keyframes heroAmbientDrift {
   0%, 100% { transform: translate(0, 0) scale(1); }
   50% { transform: translate(6px, -5px) scale(1.03); }
@@ -326,12 +304,14 @@
 .mobileHeroCtaVentures,
 .mobileHeroCtaServices,
 .mobileHeroCtaInvolved {
-  height: 2.75rem;
+  height: 4.15rem;
+  min-height: 4.15rem;
   padding: 0 var(--space-5);
-  font-size: 0.9rem;
+  font-size: var(--text-lg);
   font-weight: var(--weight-semibold);
-  letter-spacing: -0.02em;
+  letter-spacing: var(--tracking-normal);
   border: 1px solid rgba(255, 255, 255, 0.38);
+  border-radius: var(--radius-full);
   box-shadow: 0 10px 24px rgba(15, 36, 64, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.16);
 }
 
@@ -347,23 +327,23 @@
 
 .mobileHeroCtaServices {
   width: 10.6rem;
-  background: linear-gradient(110deg, #201a1e 0%, #091633 48%, #b2664b 100%);
+  background: linear-gradient(110deg, #535353 0%, #181924 100%);
 }
 
 .mobileHeroCtaServices:hover {
-  background: linear-gradient(110deg, #2a2025 0%, #102044 48%, #c87858 100%);
+  background: linear-gradient(110deg, #626262 0%, #222533 100%);
   box-shadow: 0 14px 28px rgba(15, 36, 64, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .mobileHeroCtaInvolved {
   width: 8.8rem;
-  background: linear-gradient(110deg, #4b3d3a 0%, #a7a9ac 52%, #dedede 100%);
-  color: var(--color-text-primary);
-  border-color: rgba(17, 24, 39, 0.12);
+  background: linear-gradient(110deg, #535353 0%, #181924 100%);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.38);
 }
 
 .mobileHeroCtaInvolved:hover {
-  background: linear-gradient(110deg, #5b4b47 0%, #b8babd 52%, #f0f0f0 100%);
+  background: linear-gradient(110deg, #626262 0%, #222533 100%);
   box-shadow: 0 14px 28px rgba(15, 36, 64, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 
@@ -990,6 +970,42 @@
 }
 
 @media (max-width: 768px) {
+  .landingPage,
+  .landingPage > section {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+  }
+
+  .landingPage .container {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    padding-right: var(--space-5);
+    padding-left: var(--space-5);
+  }
+
+  .landingPage h2,
+  .landingPage h3,
+  .landingPage p {
+    max-width: 100%;
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .landingPage h2 {
+    justify-content: center !important;
+    text-align: center;
+    font-size: clamp(2rem, 8vw, 3rem);
+    line-height: 1.08;
+    gap: 0.18em !important;
+  }
+
+  .landingPage .section-label {
+    display: block;
+    text-align: center;
+  }
+
   .landingPage::before {
     display: none;
   }
@@ -1006,13 +1022,19 @@
   }
 
   .mobileHeroCtaInvolved {
-    color: var(--color-text-primary) !important;
+    color: #fff !important;
+  }
+
+  .mobileHeroCtaVentures,
+  .mobileHeroCtaServices,
+  .mobileHeroCtaInvolved {
+    background: linear-gradient(135deg, #606060, #252525) !important;
   }
 
   .viewAll {
-    flex-wrap: nowrap;
-    column-gap: 0;
-    row-gap: 0;
+    flex-wrap: wrap;
+    column-gap: var(--space-3);
+    row-gap: var(--space-3);
   }
 
   .hero {
@@ -1021,15 +1043,18 @@
 
   .heroContainer {
     height: auto;
-    min-height: 100vh;
-    padding-top: 7rem;
-    padding-bottom: 8rem;
+    min-height: 0;
+    padding-top: 6rem;
+    padding-bottom: 5rem;
   }
 
   .heroContentGrid {
     grid-template-columns: 1fr;
     grid-template-rows: auto auto auto;
     row-gap: var(--space-6);
+    min-width: 0;
+    max-width: 100%;
+    flex: none;
   }
 
   .heroLeft,
@@ -1038,14 +1063,30 @@
     grid-column: 1;
     justify-self: center;
     max-width: 100%;
+    min-width: 0;
+    width: 100%;
     text-align: center;
     align-items: center;
   }
 
+  .heroTitle,
+  .heroSub {
+    width: 100%;
+    text-align: center;
+  }
+
   .heroImageWrapper {
     grid-row: 2;
-    height: min(48vh, 22rem);
-    margin: -0.5rem 0;
+    width: 100%;
+    max-width: 100%;
+    height: clamp(16rem, 72vw, 23rem);
+    margin: 0;
+    overflow: visible;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    clip-path: none !important;
   }
 
   .heroLeft {
@@ -1093,9 +1134,24 @@
     border: none;
     box-shadow: none;
     flex-direction: column;
+    gap: var(--space-3);
+    max-width: 24rem;
+    margin: 0 auto;
+  }
+
+  .heroCenterCTAs,
+  .heroCenterCTAs > *,
+  .heroCenterCTAs > * > a {
+    max-width: 100%;
   }
 
   .heroCenterCTAs > * {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .heroCenterCTAs > * > a {
+    display: block;
     width: 100%;
   }
 
@@ -1126,11 +1182,6 @@
     align-items: center;
   }
 
-  .heroFloatBadge {
-    top: 18%;
-    right: 4%;
-  }
-
   .statsStrip {
     padding: var(--space-6) 0;
   }
@@ -1143,6 +1194,7 @@
   .statItem {
     padding: var(--space-3) var(--space-3);
     gap: var(--space-3);
+    min-width: 0;
   }
 
   .statIcon {
@@ -1154,14 +1206,37 @@
     font-size: var(--text-xl);
   }
 
+  .statLabel {
+    white-space: normal;
+    line-height: 1.25;
+  }
+
   .pillars,
   .ventures {
     padding: var(--space-14) 0;
   }
 
   .pillarGrid {
+    width: 100%;
+    min-width: 0;
     gap: var(--space-4);
     margin-top: var(--space-10);
+  }
+
+  .cardReveal,
+  .pillarCard,
+  .ventureCard {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .pillarCard {
+    align-items: center;
+    text-align: center;
+  }
+
+  .pillarBody {
+    text-align: center;
   }
 
   .pillarNumber {
@@ -1195,7 +1270,8 @@
   .heroContainer {
     height: auto;
     min-height: 0;
-    padding: 5.5rem var(--space-5) var(--space-8);
+    padding: 5.25rem var(--space-5) var(--space-6);
+    max-width: 100%;
   }
 
   .heroContentGrid {
@@ -1209,17 +1285,15 @@
   }
 
   .heroImageWrapper {
-    width: min(100%, 18rem);
-    height: 14.5rem;
+    width: 100%;
+    height: clamp(15rem, 70vw, 20rem);
     margin: 0;
-    padding: var(--space-3) var(--space-4) 0;
-    overflow: hidden;
-    border: 1px solid rgba(30, 58, 95, 0.1);
-    border-radius: 1.5rem 1.5rem 0.75rem 0.75rem;
-    background:
-      radial-gradient(circle at 50% 20%, rgba(45, 90, 142, 0.16), transparent 58%),
-      linear-gradient(180deg, #f4f7fb 0%, #e8eff8 100%);
-    box-shadow: 0 16px 32px -24px rgba(15, 36, 64, 0.55);
+    padding: 0;
+    overflow: visible;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
   }
 
   .heroImageWrapper::before {
@@ -1228,7 +1302,7 @@
 
   .heroImage {
     object-position: bottom center;
-    transform: scale(0.94);
+    transform: none;
     transform-origin: bottom center;
     filter: none;
   }
@@ -1259,7 +1333,13 @@
   .mobileHeroCtaServices,
   .mobileHeroCtaInvolved {
     width: 100%;
-    min-height: 2.75rem;
+    height: 3.25rem;
+    min-height: 3.25rem;
+    font-size: 1rem;
+  }
+
+  .heroCenterCTAs {
+    padding: var(--space-3) 0;
   }
 
   .pillars,
@@ -1290,13 +1370,6 @@
     max-width: 220px;
   }
 
-  .heroFloatBadge {
-    font-size: 0.65rem;
-    padding: var(--space-1) var(--space-3);
-    top: 14%;
-    right: 2%;
-  }
-
   .heroDotGrid {
     display: none;
   }
@@ -1304,6 +1377,21 @@
   .statsInner {
     grid-template-columns: repeat(2, 1fr);
     gap: var(--space-3);
+  }
+
+  .statItem {
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+
+  .statIcon {
+    width: 34px;
+    height: 34px;
+  }
+
+  .statLabel {
+    font-size: 0.65rem;
+    letter-spacing: 0.04em;
   }
 
   .pillarsBgShape {

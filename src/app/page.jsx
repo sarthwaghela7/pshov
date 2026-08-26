@@ -242,9 +242,9 @@ export default function HomePage() {
             {/* CENTER: Cutout Image */}
             <motion.div
               className={styles.heroImageWrapper}
-              style={prefersReducedMotion ? undefined : { scale: imageScale, x: imageX, y: imageY }}
-              initial={prefersReducedMotion ? { opacity: 1 } : { opacity: 0, clipPath: 'inset(6% 0 0 round 2rem)' }}
-              animate={prefersReducedMotion ? { opacity: 1 } : { opacity: 1, clipPath: 'inset(0% 0 0 round 0.5rem)' }}
+              style={isDesktopPointer && !prefersReducedMotion ? { scale: imageScale, x: imageX, y: imageY } : undefined}
+              initial={prefersReducedMotion || !isDesktopPointer ? { opacity: 1 } : { opacity: 0, clipPath: 'inset(6% 0 0 round 2rem)' }}
+              animate={prefersReducedMotion || !isDesktopPointer ? { opacity: 1 } : { opacity: 1, clipPath: 'inset(0% 0 0 round 0.5rem)' }}
               transition={{ delay: 0.2, duration: 1, ease: [0.16, 1, 0.3, 1] }}
             >
               <div className={styles.heroAmbientGlow} aria-hidden="true" />
@@ -301,7 +301,7 @@ export default function HomePage() {
               transition={prefersReducedMotion ? { delay: 1.74, duration: 0.3 } : { delay: 1.74, type: 'spring', stiffness: 100, damping: 15 }}
             >
               <Link to="/ventures#services">
-                <Button magnetic variant="glassOutline" size="lg" className={styles.mobileHeroCtaServices}>
+                <Button magnetic variant="glass" size="lg" className={styles.mobileHeroCtaServices}>
                   Explore Services
                 </Button>
               </Link>
@@ -312,7 +312,7 @@ export default function HomePage() {
               transition={prefersReducedMotion ? { delay: 1.83, duration: 0.3 } : { delay: 1.83, type: 'spring', stiffness: 100, damping: 15 }}
             >
               <Link to="/contact">
-                <Button magnetic variant="glassOutline" size="lg" className={styles.mobileHeroCtaInvolved}>
+                <Button magnetic variant="glass" size="lg" className={styles.mobileHeroCtaInvolved}>
                   Get Involved
                 </Button>
               </Link>
