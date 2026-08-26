@@ -98,15 +98,15 @@ export default function Footer() {
           <h4 className={styles.columnTitle}>Get in Touch</h4>
           <div className={styles.contactList}>
             <div className={styles.contactItem}>
-              <Mail size={14} />
+              <span className={styles.contactIcon}><Mail size={14} /></span>
               <a href={`mailto:${settings.primary_email || ''}`}>{settings.primary_email || 'hello@psonkarventures.com'}</a>
             </div>
             <div className={styles.contactItem}>
-              <Phone size={14} />
+              <span className={styles.contactIcon}><Phone size={14} /></span>
               <a href={`tel:${settings.primary_whatsapp || ''}`}>{settings.primary_whatsapp || '+91 XXXXX XXXXX'}</a>
             </div>
             <div className={styles.contactItem}>
-              <MapPin size={14} />
+              <span className={styles.contactIcon}><MapPin size={14} /></span>
               <span>{settings.location || 'Bangalore, Karnataka, India'}</span>
             </div>
           </div>

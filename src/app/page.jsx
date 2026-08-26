@@ -9,6 +9,10 @@ import {
   Gem,
   Cog,
   Sprout,
+  Sparkles,
+  Building2,
+  Layers,
+  Star,
 } from 'lucide-react';
 import SceneWrapper from '@/components/three/SceneWrapper';
 import HeroScene from '@/components/three/HeroScene';
@@ -67,6 +71,7 @@ const pillars = [
     cta: 'Get Involved',
     href: '/contact',
     accentClass: 'accent',
+    number: '01',
   },
   {
     icon: <Cog size={28} />,
@@ -75,6 +80,7 @@ const pillars = [
     cta: 'Get Involved',
     href: '/contact',
     accentClass: 'gold',
+    number: '02',
   },
   {
     icon: <Sprout size={28} />,
@@ -83,7 +89,16 @@ const pillars = [
     cta: 'Get Involved',
     href: '/contact',
     accentClass: 'teal',
+    number: '03',
   },
+];
+
+/* ============ Stats Strip Data ============ */
+const stats = [
+  { icon: <Building2 size={22} />, value: '3+', label: 'Active Ventures' },
+  { icon: <Users size={22} />, value: '10+', label: 'Team Members' },
+  { icon: <Rocket size={22} />, value: '5+', label: 'Services Shipped' },
+  { icon: <Star size={22} />, value: '100%', label: 'Founder-Led' },
 ];
 
 export default function HomePage() {
@@ -212,6 +227,7 @@ export default function HomePage() {
               transition={{ delay: 0.2, duration: 1, ease: [0.16, 1, 0.3, 1] }}
             >
               <div className={styles.heroAmbientGlow} aria-hidden="true" />
+              <div className={styles.heroDotGrid} aria-hidden="true" />
               <motion.img
                 src="/images/founder_white_bg.png"
                 alt="Pratap Sonkar - Founder"
@@ -220,6 +236,15 @@ export default function HomePage() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.2, duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
               />
+              <motion.div
+                className={styles.heroFloatBadge}
+                initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 16, scale: 0.9 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ delay: 1.1, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <Sparkles size={14} />
+                <span>Building in public</span>
+              </motion.div>
             </motion.div>
 
             {/* RIGHT: Secondary Info & Secondary CTA */}
@@ -284,8 +309,26 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ============ STATS STRIP ============ */}
+      <section className={styles.statsStrip}>
+        <div className={`${styles.statsInner} container`}>
+          {stats.map((stat, i) => (
+            <Reveal key={stat.label} delay={i * 0.08} className={styles.statItemReveal}>
+              <div className={styles.statItem}>
+                <div className={styles.statIcon}>{stat.icon}</div>
+                <div className={styles.statText}>
+                  <span className={styles.statValue}>{stat.value}</span>
+                  <span className={styles.statLabel}>{stat.label}</span>
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
       {/* ============ THREE PILLARS ============ */}
       <section className={`${styles.pillars} section`} ref={pillarsRef}>
+        <div className={styles.pillarsBgShape} aria-hidden="true" />
         <div className="container">
           <motion.div
             initial={{ opacity: 0, x: -72 }}
@@ -310,8 +353,11 @@ export default function HomePage() {
                   transition={{ type: 'spring', stiffness: 220, damping: 18 }}
                   onMouseMove={isDesktopPointer ? updateCardSpotlight : undefined}
                 >
-                  <div className={`${styles.pillarIcon} ${styles[pillar.accentClass]}`}>
-                    {pillar.icon}
+                  <div className={styles.pillarTop}>
+                    <div className={`${styles.pillarIcon} ${styles[pillar.accentClass]}`}>
+                      {pillar.icon}
+                    </div>
+                    <span className={styles.pillarNumber}>{pillar.number}</span>
                   </div>
                   <h3 className={styles.pillarHeading}>{pillar.heading}</h3>
                   <p className={styles.pillarBody}>{pillar.body}</p>
@@ -458,6 +504,15 @@ export default function HomePage() {
               transition={{ delay: 0.3, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             >
               <div className={styles.founderGlow} />
+              <div className={styles.founderRing} aria-hidden="true" />
+              <div className={styles.founderChip} style={{ '--chip-x': '-8%', '--chip-y': '12%' }}>
+                <Layers size={16} />
+                <span>Multi-venture</span>
+              </div>
+              <div className={styles.founderChip} style={{ '--chip-x': '68%', '--chip-y': '68%' }}>
+                <Rocket size={16} />
+                <span>Founder-led</span>
+              </div>
             </motion.div>
           </div>
         </div>
