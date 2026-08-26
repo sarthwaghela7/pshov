@@ -3,6 +3,39 @@
    ============================================ */
 
 /* ---- Hero Section ---- */
+.landingPage {
+  position: relative;
+  isolation: isolate;
+  --cursor-x: 50%;
+  --cursor-y: 0;
+  --cursor-opacity: 0;
+}
+
+.landingPage::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: var(--cursor-opacity);
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle at var(--cursor-x) var(--cursor-y), rgba(255, 255, 255, 0.4), transparent 5rem),
+    radial-gradient(rgba(30, 58, 95, 0.34) 1px, transparent 1.5px);
+  background-size: auto, 18px 18px;
+  -webkit-mask-image: radial-gradient(circle 12rem at var(--cursor-x) var(--cursor-y), #000 0%, transparent 82%);
+  mask-image: radial-gradient(circle 12rem at var(--cursor-x) var(--cursor-y), #000 0%, transparent 82%);
+  transition: opacity 400ms ease-out;
+}
+
+.landingPage > section {
+  position: relative;
+}
+
+.landingPage > section > :not(.heroBackground):not(.heroCursorLight) {
+  position: relative;
+  z-index: 2;
+}
+
 .hero {
   position: relative;
   min-height: 100vh;
@@ -48,84 +81,6 @@
   mask-image: radial-gradient(circle 12rem at var(--cursor-x) var(--cursor-y), #000 0%, transparent 82%);
   transition: opacity 400ms ease-out;
   pointer-events: none;
-}
-
-.sectionOrbBlue,
-.sectionOrbGold {
-  position: absolute;
-  width: clamp(9rem, 19vw, 19rem);
-  aspect-ratio: 1;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.82;
-}
-
-.sectionOrbBlue {
-  top: -42%;
-  left: -17%;
-  background: var(--color-accent-light);
-}
-
-.sectionOrbGold {
-  right: -17%;
-  bottom: -46%;
-  background: var(--color-gold-light);
-}
-
-.statsStrip .sectionOrbBlue {
-  top: -65%;
-  left: 14%;
-  opacity: 0.48;
-}
-
-.statsStrip .sectionOrbGold {
-  right: 4%;
-  bottom: -70%;
-  opacity: 0.55;
-}
-
-.pillars .sectionOrbBlue {
-  top: 18%;
-  left: -22%;
-}
-
-.pillars .sectionOrbGold {
-  top: -28%;
-  right: -14%;
-  bottom: auto;
-}
-
-.ventures .sectionOrbBlue {
-  top: auto;
-  bottom: -42%;
-  left: -16%;
-}
-
-.ventures .sectionOrbGold {
-  top: 8%;
-  right: -20%;
-  bottom: auto;
-}
-
-.founder .sectionOrbBlue {
-  top: -26%;
-  left: 34%;
-}
-
-.founder .sectionOrbGold {
-  right: -16%;
-  bottom: -26%;
-}
-
-.closingCTA .sectionOrbBlue {
-  top: -58%;
-  left: -12%;
-}
-
-.closingCTA .sectionOrbGold {
-  right: 12%;
-  bottom: -62%;
 }
 
 .heroContainer {
@@ -1035,6 +990,10 @@
 }
 
 @media (max-width: 768px) {
+  .landingPage::before {
+    display: none;
+  }
+
   .mobileHeroCtaVentures,
   .mobileHeroCtaServices,
   .mobileHeroCtaInvolved {

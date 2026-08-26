@@ -108,6 +108,7 @@ export default function HomePage() {
   const prefersReducedMotion = useReducedMotion();
   const isDesktopPointer = useDesktopPointer();
   const heroRef = useRef(null);
+  const landingPageRef = useRef(null);
   const { scrollY } = useScroll();
   const imageScale = useTransform(scrollY, [0, 400], [1, 1.08]);
   const imageParallaxY = useTransform(scrollY, [0, 400], [0, -32]);
@@ -168,8 +169,25 @@ export default function HomePage() {
     imageMouseY.set(0);
   };
 
+  const handleLandingPointerMove = (event) => {
+    if (!isDesktopPointer || prefersReducedMotion) return;
+    const bounds = event.currentTarget.getBoundingClientRect();
+    event.currentTarget.style.setProperty('--cursor-x', `${event.clientX - bounds.left}px`);
+    event.currentTarget.style.setProperty('--cursor-y', `${event.clientY - bounds.top}px`);
+    event.currentTarget.style.setProperty('--cursor-opacity', '1');
+  };
+
+  const resetLandingPointer = () => {
+    landingPageRef.current?.style.setProperty('--cursor-opacity', '0');
+  };
+
   return (
-    <>
+    <div
+      ref={landingPageRef}
+      className={styles.landingPage}
+      onMouseMove={handleLandingPointerMove}
+      onMouseLeave={resetLandingPointer}
+    >
       {/* ============ HERO SECTION ============ */}
       <section ref={heroRef} className={styles.hero} onMouseMove={handleHeroPointerMove} onMouseLeave={resetHeroPointer}>
         {/* Background Gradient */}
@@ -305,8 +323,6 @@ export default function HomePage() {
 
       {/* ============ STATS STRIP ============ */}
       <section className={styles.statsStrip}>
-        <div className={styles.sectionOrbBlue} aria-hidden="true" />
-        <div className={styles.sectionOrbGold} aria-hidden="true" />
         <div className={`${styles.statsInner} container`}>
           {stats.map((stat, i) => (
             <Reveal key={stat.label} delay={i * 0.08} className={styles.statItemReveal}>
@@ -324,8 +340,6 @@ export default function HomePage() {
 
       {/* ============ THREE PILLARS ============ */}
       <section className={`${styles.pillars} section`} ref={pillarsRef}>
-        <div className={styles.sectionOrbBlue} aria-hidden="true" />
-        <div className={styles.sectionOrbGold} aria-hidden="true" />
         <div className="container">
           <motion.div
             initial={{ opacity: 0, x: -72 }}
@@ -371,8 +385,6 @@ export default function HomePage() {
 
       {/* ============ VENTURES SNAPSHOT ============ */}
       <section className={`${styles.ventures} section`} ref={venturesRef}>
-        <div className={styles.sectionOrbBlue} aria-hidden="true" />
-        <div className={styles.sectionOrbGold} aria-hidden="true" />
         <div className="container">
           <SectionLabel>The Portfolio</SectionLabel>
           <AnimatedText
@@ -459,8 +471,6 @@ export default function HomePage() {
 
       {/* ============ FOUNDER STRIP ============ */}
       <section className={`${styles.founder} section`} ref={founderRef}>
-        <div className={styles.sectionOrbBlue} aria-hidden="true" />
-        <div className={styles.sectionOrbGold} aria-hidden="true" />
         <Reveal>
         <div className="container">
           <div className={styles.founderInner}>
@@ -522,8 +532,6 @@ export default function HomePage() {
 
       {/* ============ CLOSING CTA ============ */}
       <section className={`${styles.closingCTA} section`} ref={ctaRef}>
-        <div className={styles.sectionOrbBlue} aria-hidden="true" />
-        <div className={styles.sectionOrbGold} aria-hidden="true" />
         <Reveal>
         <div className="container" style={{ textAlign: 'center' }}>
           <AnimatedText
@@ -575,6 +583,6 @@ export default function HomePage() {
         </div>
         </Reveal>
       </section>
-    </>
+    </div>
   );
 }

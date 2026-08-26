@@ -138,6 +138,15 @@ strong {
 }
 
 @media (max-width: 768px) {
+  html,
+  body,
+  #root,
+  .publicMain {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+  }
+
   .publicMain {
     padding-bottom: 4.75rem;
   }
