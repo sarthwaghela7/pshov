@@ -19,8 +19,8 @@
   opacity: var(--cursor-opacity);
   pointer-events: none;
   background-image:
-    radial-gradient(circle at var(--cursor-x) var(--cursor-y), rgba(255, 255, 255, 0.4), transparent 5rem),
-    radial-gradient(rgba(30, 58, 95, 0.34) 1px, transparent 1.5px);
+    radial-gradient(circle at var(--cursor-x) var(--cursor-y), rgba(255, 255, 255, 0.38), transparent 5rem),
+    radial-gradient(rgba(30, 58, 95, 0.42) 1px, transparent 1.5px);
   background-size: auto, 18px 18px;
   -webkit-mask-image: radial-gradient(circle 12rem at var(--cursor-x) var(--cursor-y), #000 0%, transparent 82%);
   mask-image: radial-gradient(circle 12rem at var(--cursor-x) var(--cursor-y), #000 0%, transparent 82%);
@@ -31,9 +31,99 @@
   position: relative;
 }
 
-.landingPage > section > :not(.heroBackground):not(.heroCursorLight) {
+.landingPage > section > :not(.heroBackground):not(.sectionBackdrop) {
   position: relative;
   z-index: 2;
+}
+
+.sectionBackdrop {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 1;
+}
+
+.sectionBackdrop::after {
+  display: none;
+  content: '';
+  position: absolute;
+  width: 18rem;
+  height: 18rem;
+  right: -9rem;
+  bottom: -8rem;
+  opacity: 0.7;
+  border: 1px solid var(--color-accent);
+  border-radius: 50%;
+  box-shadow: 0 0 0 1.5rem transparent, 0 0 0 1.6rem var(--color-accent), 0 0 0 3.1rem transparent, 0 0 0 3.2rem var(--color-accent);
+}
+
+.sectionBackdrop::before {
+  content: '';
+  position: absolute;
+  width: 22rem;
+  height: 20rem;
+  right: -12rem;
+  top: 8%;
+  opacity: 0.14;
+  background:
+    repeating-radial-gradient(ellipse at 100% 50%, transparent 0 2.2rem, var(--color-gold-light) 2.25rem 2.3rem, transparent 2.35rem 3.1rem);
+  transform: rotate(-16deg);
+  pointer-events: none;
+}
+
+.statsStrip .sectionBackdrop {
+  opacity: 0.95;
+}
+
+.pillars {
+  overflow: hidden;
+}
+
+.pillars .sectionBackdrop {
+  background-image: radial-gradient(ellipse at 102% 48%, transparent 0 4rem, rgba(30, 58, 95, 0.13) 4.08rem 4.14rem, transparent 4.2rem 6rem, rgba(30, 58, 95, 0.1) 6.08rem 6.14rem, transparent 6.2rem 8rem, rgba(30, 58, 95, 0.07) 8.08rem 8.14rem, transparent 8.2rem);
+  background-size: 18rem 18rem;
+  background-position: right -9rem center;
+  background-repeat: no-repeat;
+}
+.ventures .sectionBackdrop {
+  background-image: repeating-linear-gradient(166deg, transparent 0 2.8rem, rgba(184, 134, 11, 0.18) 2.86rem 2.9rem, transparent 2.96rem 3.8rem);
+  background-size: 24rem 18rem;
+  background-position: right -12rem bottom -2rem;
+  background-repeat: no-repeat;
+}
+
+.ventures .sectionBackdrop::after {
+  display: block;
+  width: 15rem;
+  height: 12rem;
+  right: -4rem;
+  bottom: -3rem;
+  border: 0;
+  border-top: 1px solid rgba(45, 90, 142, 0.2);
+  box-shadow: 0 2rem 0 -1px transparent, 0 2rem 0 -1px rgba(45, 90, 142, 0.2), 0 4rem 0 -2px transparent, 0 4rem 0 -2px rgba(45, 90, 142, 0.2);
+  transform: perspective(18rem) rotateX(55deg) rotateZ(-8deg);
+}
+
+.founder .sectionBackdrop {
+  background-image: radial-gradient(circle at 102% 14%, transparent 0 6rem, rgba(45, 90, 142, 0.14) 6.05rem 6.1rem, transparent 6.2rem 7.6rem, rgba(45, 90, 142, 0.1) 7.65rem 7.7rem, transparent 7.8rem);
+  background-size: 18rem 18rem;
+  background-position: right -9rem top -4rem;
+  background-repeat: no-repeat;
+}
+
+.closingCTA .sectionBackdrop {
+  opacity: 1;
+  background-image: radial-gradient(circle at 100% 82%, rgba(184, 134, 11, 0.18) 0 1px, transparent 1.5px);
+  background-size: 0.85rem 0.85rem;
+  background-position: 0 0;
+  background-repeat: repeat;
+  -webkit-mask-image: radial-gradient(ellipse 18rem 12rem at 96% 84%, #000, transparent 72%);
+  mask-image: radial-gradient(ellipse 18rem 12rem at 96% 84%, #000, transparent 72%);
 }
 
 .hero {
@@ -66,21 +156,6 @@
   background-size: 64px 64px;
   -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000 0%, transparent 75%);
   mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000 0%, transparent 75%);
-}
-
-.heroCursorLight {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  opacity: var(--cursor-opacity);
-  background-image:
-    radial-gradient(circle at var(--cursor-x) var(--cursor-y), rgba(255, 255, 255, 0.4), transparent 5rem),
-    radial-gradient(rgba(30, 58, 95, 0.34) 1px, transparent 1.5px);
-  background-size: auto, 18px 18px;
-  -webkit-mask-image: radial-gradient(circle 12rem at var(--cursor-x) var(--cursor-y), #000 0%, transparent 82%);
-  mask-image: radial-gradient(circle 12rem at var(--cursor-x) var(--cursor-y), #000 0%, transparent 82%);
-  transition: opacity 400ms ease-out;
-  pointer-events: none;
 }
 
 .heroContainer {
@@ -1006,8 +1081,37 @@
     text-align: center;
   }
 
+  .sectionBackdrop {
+    opacity: 0.16;
+  }
+
+  .sectionBackdrop::after,
   .landingPage::before {
     display: none;
+  }
+  .statsStrip .sectionBackdrop {
+    opacity: 0.12;
+    background-size: 12rem 12rem;
+    background-position: right -7rem center;
+  }
+
+  .pillars .sectionBackdrop {
+    background-size: 13rem 13rem;
+    background-position: -7rem 3rem;
+  }
+
+  .ventures .sectionBackdrop {
+    background-size: 16rem 12rem;
+    background-position: right -10rem bottom 0;
+  }
+
+  .founder .sectionBackdrop {
+    background-size: 14rem 14rem;
+    background-position: right -8rem top 0;
+  }
+
+  .closingCTA .sectionBackdrop {
+    opacity: 0.14;
   }
 
   .mobileHeroCtaVentures,

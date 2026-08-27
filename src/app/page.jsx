@@ -192,7 +192,6 @@ export default function HomePage() {
       <section ref={heroRef} className={styles.hero} onMouseMove={handleHeroPointerMove} onMouseLeave={resetHeroPointer}>
         {/* Background Gradient */}
         <div className={styles.heroBackground} />
-        <div className={styles.heroCursorLight} aria-hidden="true" />
         {/* Content Container */}
         <div className={`${styles.heroContainer} container`}>
           
@@ -323,6 +322,7 @@ export default function HomePage() {
 
       {/* ============ STATS STRIP ============ */}
       <section className={styles.statsStrip}>
+        <div className={styles.sectionBackdrop} aria-hidden="true" />
         <div className={`${styles.statsInner} container`}>
           {stats.map((stat, i) => (
             <Reveal key={stat.label} delay={i * 0.08} className={styles.statItemReveal}>
@@ -340,6 +340,7 @@ export default function HomePage() {
 
       {/* ============ THREE PILLARS ============ */}
       <section className={`${styles.pillars} section`} ref={pillarsRef}>
+        <div className={styles.sectionBackdrop} aria-hidden="true" />
         <div className="container">
           <motion.div
             initial={{ opacity: 0, x: -72 }}
@@ -385,6 +386,7 @@ export default function HomePage() {
 
       {/* ============ VENTURES SNAPSHOT ============ */}
       <section className={`${styles.ventures} section`} ref={venturesRef}>
+        <div className={styles.sectionBackdrop} aria-hidden="true" />
         <div className="container">
           <SectionLabel>The Portfolio</SectionLabel>
           <AnimatedText
@@ -471,6 +473,7 @@ export default function HomePage() {
 
       {/* ============ FOUNDER STRIP ============ */}
       <section className={`${styles.founder} section`} ref={founderRef}>
+        <div className={styles.sectionBackdrop} aria-hidden="true" />
         <Reveal>
         <div className="container">
           <div className={styles.founderInner}>
@@ -532,6 +535,7 @@ export default function HomePage() {
 
       {/* ============ CLOSING CTA ============ */}
       <section className={`${styles.closingCTA} section`} ref={ctaRef}>
+        <div className={styles.sectionBackdrop} aria-hidden="true" />
         <Reveal>
         <div className="container" style={{ textAlign: 'center' }}>
           <AnimatedText
