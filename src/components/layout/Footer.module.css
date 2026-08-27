@@ -217,6 +217,9 @@
 
   .inner {
     grid-template-columns: 1fr;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
     gap: 0;
     padding: 0 var(--space-6) var(--space-10);
     text-align: center;
@@ -231,6 +234,16 @@
 
   .logoImage {
     width: var(--logo-mark-size);
+    max-width: 100%;
+  }
+
+  .logo,
+  .logo picture,
+  .brand,
+  .column,
+  .contactList {
+    width: 100%;
+    min-width: 0;
   }
 
   .tagline {
