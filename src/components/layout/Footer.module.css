@@ -233,17 +233,20 @@
   }
 
   .logoImage {
-    width: var(--logo-mark-size);
+    width: clamp(13rem, 62vw, 17rem);
     max-width: 100%;
   }
 
   .logo,
-  .logo picture,
   .brand,
   .column,
   .contactList {
     width: 100%;
     min-width: 0;
+  }
+
+  .logo {
+    justify-content: center;
   }
 
   .tagline {

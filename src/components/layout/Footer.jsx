@@ -36,10 +36,7 @@ export default function Footer() {
         {/* Brand Column */}
         <div className={styles.brand}>
           <Link to="/" className={styles.logo}>
-            <picture>
-              <source media="(max-width: 640px)" srcSet="/images/White logomark.png" />
-              <img className={styles.logoImage} src="/images/White logo.png" alt="P.Sonkar House of Ventures" />
-            </picture>
+            <img className={styles.logoImage} src="/images/White logo.png" alt="P.Sonkar House of Ventures" />
           </Link>
           <p className={styles.tagline}>
             Ideas in Motion. Ventures in Progress.

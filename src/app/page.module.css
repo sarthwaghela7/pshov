@@ -379,14 +379,12 @@
 .mobileHeroCtaVentures,
 .mobileHeroCtaServices,
 .mobileHeroCtaInvolved {
-  height: 4.15rem;
-  min-height: 4.15rem;
+  height: 2.75rem;
   padding: 0 var(--space-5);
-  font-size: var(--text-lg);
+  font-size: 0.9rem;
   font-weight: var(--weight-semibold);
-  letter-spacing: var(--tracking-normal);
+  letter-spacing: -0.02em;
   border: 1px solid rgba(255, 255, 255, 0.38);
-  border-radius: var(--radius-full);
   box-shadow: 0 10px 24px rgba(15, 36, 64, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.16);
 }
 
@@ -402,23 +400,23 @@
 
 .mobileHeroCtaServices {
   width: 10.6rem;
-  background: linear-gradient(110deg, #535353 0%, #181924 100%);
+  background: linear-gradient(110deg, #201a1e 0%, #091633 48%, #b2664b 100%);
 }
 
 .mobileHeroCtaServices:hover {
-  background: linear-gradient(110deg, #626262 0%, #222533 100%);
+  background: linear-gradient(110deg, #2a2025 0%, #102044 48%, #c87858 100%);
   box-shadow: 0 14px 28px rgba(15, 36, 64, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .mobileHeroCtaInvolved {
   width: 8.8rem;
-  background: linear-gradient(110deg, #535353 0%, #181924 100%);
-  color: #fff;
-  border-color: rgba(255, 255, 255, 0.38);
+  background: linear-gradient(110deg, #4b3d3a 0%, #a7a9ac 52%, #dedede 100%);
+  color: var(--color-text-primary);
+  border-color: rgba(17, 24, 39, 0.12);
 }
 
 .mobileHeroCtaInvolved:hover {
-  background: linear-gradient(110deg, #626262 0%, #222533 100%);
+  background: linear-gradient(110deg, #5b4b47 0%, #b8babd 52%, #f0f0f0 100%);
   box-shadow: 0 14px 28px rgba(15, 36, 64, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 
@@ -1181,9 +1179,10 @@
 
   .heroImageWrapper {
     grid-row: 2;
-    width: 100%;
-    max-width: 100%;
-    height: clamp(16rem, 72vw, 23rem);
+    isolation: isolate;
+    width: min(100%, 25rem);
+    max-width: 25rem;
+    height: clamp(19rem, 82vw, 25rem);
     margin: 0;
     overflow: visible;
     border: 0;
@@ -1191,6 +1190,50 @@
     background: transparent;
     box-shadow: none;
     clip-path: none !important;
+  }
+
+  .heroImageWrapper::before {
+    display: block;
+    inset: auto;
+    top: 9%;
+    left: 50%;
+    width: 72%;
+    aspect-ratio: 1;
+    transform: translateX(-50%);
+    border: 1px solid rgba(30, 58, 95, 0.14);
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 36% 30%, rgba(255, 255, 255, 0.96), rgba(232, 240, 249, 0.82) 48%, rgba(207, 220, 237, 0.62) 100%);
+    box-shadow:
+      0 0 0 1.1rem rgba(30, 58, 95, 0.025),
+      0 0 0 2.4rem rgba(184, 134, 11, 0.025);
+  }
+
+  .heroImageWrapper::after {
+    content: '';
+    position: absolute;
+    right: 13%;
+    bottom: 1.5%;
+    left: 13%;
+    height: 1rem;
+    z-index: -1;
+    border-radius: 50%;
+    background: rgba(15, 36, 64, 0.2);
+    filter: blur(12px);
+  }
+
+  .heroImage {
+    width: 108%;
+    max-width: none;
+    height: 100%;
+    object-position: bottom center;
+    filter: drop-shadow(0 1.25rem 1.4rem rgba(15, 36, 64, 0.2));
+  }
+
+  .heroDotGrid {
+    inset: 6% 4% 12%;
+    opacity: 0.42;
+    background-size: 18px 18px;
   }
 
   .heroLeft {
@@ -1237,7 +1280,8 @@
     -webkit-backdrop-filter: none;
     border: none;
     box-shadow: none;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--space-3);
     max-width: 24rem;
     margin: 0 auto;
@@ -1252,6 +1296,10 @@
   .heroCenterCTAs > * {
     width: 100%;
     min-width: 0;
+  }
+
+  .heroCenterCTAs > :first-child {
+    grid-column: 1 / -1;
   }
 
   .heroCenterCTAs > * > a {
@@ -1389,8 +1437,8 @@
   }
 
   .heroImageWrapper {
-    width: 100%;
-    height: clamp(15rem, 70vw, 20rem);
+    width: min(100%, 22rem);
+    height: clamp(19rem, 88vw, 22rem);
     margin: 0;
     padding: 0;
     overflow: visible;
@@ -1401,14 +1449,17 @@
   }
 
   .heroImageWrapper::before {
-    display: none;
+    display: block;
+    top: 8%;
+    width: 70%;
   }
 
   .heroImage {
     object-position: bottom center;
     transform: none;
     transform-origin: bottom center;
-    filter: none;
+    width: 106%;
+    filter: drop-shadow(0 1rem 1.1rem rgba(15, 36, 64, 0.18));
   }
 
   .heroAmbientGlow {
@@ -1475,7 +1526,9 @@
   }
 
   .heroDotGrid {
-    display: none;
+    display: block;
+    inset: 7% 2% 13%;
+    opacity: 0.34;
   }
 
   .statsInner {
