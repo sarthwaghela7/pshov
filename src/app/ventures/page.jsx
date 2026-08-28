@@ -272,6 +272,7 @@ export default function VenturesPage() {
               text="See something that interests you?"
               as="h2"
               animation="words"
+              centered
             />
             <motion.p
               className={styles.subheadline}

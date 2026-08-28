@@ -20,10 +20,6 @@
       radial-gradient(30rem 22rem at -8% 108%, var(--color-accent-glow) 0%, transparent 65%);
     pointer-events: none;
   }
-
-  .principleNumber {
-    color: var(--color-gold-dark);
-  }
 }
 
 .heroContent {
@@ -144,6 +140,12 @@
   letter-spacing: var(--tracking-widest);
   color: var(--color-accent-light);
   will-change: transform, opacity;
+}
+
+@media (min-width: 1025px) {
+  .principleNumber {
+    color: var(--color-gold-dark);
+  }
 }
 
 .principleTitle {
