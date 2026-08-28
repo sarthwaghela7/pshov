@@ -159,3 +159,31 @@
   --z-toast: 500;
   --z-canvas: -1;
 }
+
+/* ============================================
+   Desktop Premium Layer
+   Tightens spacing/line-height and brightens the
+   gold accent for desktop viewports only.
+   ============================================ */
+@media (min-width: 1025px) {
+  :root {
+    /* Brighter, richer gold for a premium feel */
+    --color-gold: #c9971e;
+    --color-gold-light: #f0b90b;
+    --color-gold-dark: #96700c;
+    --color-gold-glow: rgba(240, 185, 11, 0.22);
+    --color-gold-bg: #fdf6e3;
+
+    /* Tighter line rhythm */
+    --leading-tight: 1.06;
+    --leading-snug: 1.2;
+    --leading-relaxed: 1.6;
+
+    /* Denser section rhythm — less empty space between blocks */
+    --section-padding-y: clamp(3rem, 2.4rem + 2.6vw, 5.5rem);
+    --space-16: 3.25rem;
+    --space-20: 4.25rem;
+    --space-24: 5rem;
+    --space-32: 6.5rem;
+  }
+}

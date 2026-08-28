@@ -116,6 +116,34 @@
   background-repeat: no-repeat;
 }
 
+/* Desktop: fuller, brighter-gold backdrops so sections never feel empty */
+@media (min-width: 1025px) {
+  .sectionBackdrop::before {
+    opacity: 0.2;
+    background:
+      repeating-radial-gradient(ellipse at 100% 50%, transparent 0 2.2rem, var(--color-gold-light) 2.25rem 2.32rem, transparent 2.37rem 3.1rem);
+  }
+
+  .pillars .sectionBackdrop,
+  .founder .sectionBackdrop {
+    background-image:
+      radial-gradient(28rem 20rem at -6% 106%, rgba(240, 185, 11, 0.1), transparent 70%),
+      radial-gradient(ellipse at 102% 48%, transparent 0 4rem, rgba(30, 58, 95, 0.13) 4.08rem 4.14rem, transparent 4.2rem 6rem, rgba(30, 58, 95, 0.1) 6.08rem 6.14rem, transparent 6.2rem 8rem, rgba(30, 58, 95, 0.07) 8.08rem 8.14rem, transparent 8.2rem);
+    background-size: auto, 18rem 18rem;
+    background-position: left bottom, right -9rem center;
+    background-repeat: no-repeat, no-repeat;
+  }
+
+  .ventures .sectionBackdrop {
+    background-image:
+      radial-gradient(26rem 18rem at -8% 8%, rgba(240, 185, 11, 0.12), transparent 70%),
+      repeating-linear-gradient(166deg, transparent 0 2.8rem, rgba(184, 134, 11, 0.2) 2.86rem 2.9rem, transparent 2.96rem 3.8rem);
+    background-size: auto, 24rem 18rem;
+    background-position: left top, right -12rem bottom -2rem;
+    background-repeat: no-repeat, no-repeat;
+  }
+}
+
 .closingCTA .sectionBackdrop {
   opacity: 1;
   background-image: radial-gradient(circle at 100% 82%, rgba(184, 134, 11, 0.18) 0 1px, transparent 1.5px);
@@ -156,6 +184,32 @@
   background-size: 64px 64px;
   -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000 0%, transparent 75%);
   mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000 0%, transparent 75%);
+}
+
+@media (min-width: 1025px) {
+  .heroBackground {
+    background:
+      radial-gradient(48% 50% at 14% 8%, rgba(30, 58, 95, 0.24) 0%, transparent 62%),
+      radial-gradient(42% 46% at 90% 86%, rgba(240, 185, 11, 0.28) 0%, transparent 65%),
+      radial-gradient(30% 34% at 78% 10%, rgba(240, 185, 11, 0.16) 0%, transparent 68%),
+      linear-gradient(160deg, var(--color-bg-primary) 0%, #f3f0e6 55%, var(--color-bg-primary) 100%);
+  }
+
+  .heroBackground::after {
+    background-image: linear-gradient(rgba(30, 58, 95, 0.09) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(30, 58, 95, 0.09) 1px, transparent 1px);
+    background-size: 56px 56px;
+    -webkit-mask-image: radial-gradient(ellipse 90% 75% at 50% 40%, #000 0%, transparent 82%);
+    mask-image: radial-gradient(ellipse 90% 75% at 50% 40%, #000 0%, transparent 82%);
+  }
+
+  .heroBackground::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-bottom: 1px solid rgba(240, 185, 11, 0.3);
+    pointer-events: none;
+  }
 }
 
 .heroContainer {
@@ -428,6 +482,25 @@
   overflow: hidden;
 }
 
+.statsStrip::before,
+.statsStrip::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-gold-light), transparent);
+  z-index: 1;
+}
+
+.statsStrip::before {
+  top: 0;
+}
+
+.statsStrip::after {
+  bottom: 0;
+}
+
 .statsStrip::before {
   content: '';
   position: absolute;
@@ -549,7 +622,7 @@
   padding: var(--space-8);
   border-radius: var(--radius-xl);
   border: 1px solid rgba(17, 24, 39, 0.08);
-  box-shadow: 0 1px 2px rgba(15, 36, 64, 0.04);
+  box-shadow: 0 2px 6px rgba(15, 36, 64, 0.06), 0 18px 36px -24px rgba(15, 36, 64, 0.4);
   transition: box-shadow 220ms ease-out, border-color 220ms ease-out, transform 220ms var(--ease-out-expo);
 }
 
@@ -567,18 +640,18 @@
   content: '';
   position: absolute;
   inset: 0 0 auto;
-  height: 3px;
-  background: linear-gradient(90deg, var(--color-accent), var(--color-accent-light), var(--color-gold-light));
-  transform: scaleX(0);
+  height: 4px;
+  background: linear-gradient(90deg, var(--color-accent), var(--color-gold-light) 60%, var(--color-gold) 100%);
+  transform: scaleX(1);
   transform-origin: left center;
   transition: transform 400ms var(--ease-out-expo);
 }
 
 .pillarCard:hover,
 .ventureCard:hover {
-  border-color: rgba(30, 58, 95, 0.22);
-  box-shadow: 0 20px 40px -20px rgba(15, 36, 64, 0.3);
-  transform: translateY(-6px);
+  border-color: rgba(240, 185, 11, 0.4);
+  box-shadow: 0 8px 16px rgba(15, 36, 64, 0.1), 0 30px 50px -22px rgba(15, 36, 64, 0.4), 0 0 0 1px rgba(240, 185, 11, 0.12);
+  transform: translateY(-8px);
 }
 
 .pillarCard:hover::before,
@@ -609,20 +682,23 @@
 }
 
 .pillarIcon {
-  width: 56px;
-  height: 56px;
+  width: 60px;
+  height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: var(--radius-lg);
-  background: linear-gradient(145deg, #ffffff, #eef2f9);
-  border: 1px solid rgba(30, 58, 95, 0.12);
-  box-shadow: 0 5px 12px -8px rgba(15, 36, 64, 0.36);
+  color: #fff;
+  box-shadow: 0 10px 20px -8px rgba(15, 36, 64, 0.45);
 }
 
-.pillarIcon.accent { color: var(--color-accent); }
-.pillarIcon.gold { color: var(--color-gold-dark); }
-.pillarIcon.teal { color: var(--color-teal); }
+.pillarIcon.accent { background: linear-gradient(150deg, var(--color-accent-light), var(--color-accent-dark)); }
+.pillarIcon.gold { background: linear-gradient(150deg, var(--color-gold-light), var(--color-gold-dark)); }
+.pillarIcon.teal { background: linear-gradient(150deg, var(--color-teal-light), var(--color-teal-dark)); }
+
+.pillarNumber {
+  -webkit-text-stroke: 1px rgba(240, 185, 11, 0.35);
+}
 
 .pillarHeading {
   font-size: var(--text-2xl);
@@ -977,20 +1053,30 @@
   position: relative;
 }
 
-.closingCTA .container {
+.closingBox {
   position: relative;
   padding-top: var(--space-16);
   padding-bottom: var(--space-16);
   background: linear-gradient(135deg, var(--color-accent-dark) 0%, var(--color-accent) 55%, var(--color-accent-light) 100%);
   border-radius: var(--radius-xl);
   overflow: hidden;
+  box-shadow: 0 30px 60px -24px rgba(15, 36, 64, 0.5), 0 0 0 1px rgba(240, 185, 11, 0.16);
 }
 
-.closingCTA .container::before {
+.closingBox::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(50% 60% at 85% 10%, rgba(212, 160, 23, 0.35), transparent 70%);
+  background: radial-gradient(50% 60% at 85% 10%, rgba(240, 185, 11, 0.4), transparent 70%);
+  pointer-events: none;
+}
+
+.closingBox::after {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--color-gold-light), transparent);
   pointer-events: none;
 }
 
@@ -1323,7 +1409,7 @@
     height: 9rem;
   }
 
-  .closingCTA .container {
+  .closingBox {
     padding-top: var(--space-10);
     padding-bottom: var(--space-10);
     border-radius: var(--radius-lg);

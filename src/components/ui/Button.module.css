@@ -35,8 +35,24 @@
 
 /* Variants */
 .primary {
-  background: var(--color-accent);
+  background: linear-gradient(135deg, var(--color-accent-dark) 0%, var(--color-accent) 100%);
   color: #fff;
+  box-shadow: 0 10px 24px -8px rgba(15, 36, 64, 0.45);
+}
+
+.primary:hover {
+  box-shadow: 0 14px 32px -8px rgba(15, 36, 64, 0.55), 0 0 0 2px rgba(240, 185, 11, 0.3);
+}
+
+.gold {
+  background: linear-gradient(135deg, var(--color-gold-light) 0%, var(--color-gold) 60%, var(--color-gold-dark) 100%);
+  color: #1a1305;
+  font-weight: var(--weight-semibold);
+  box-shadow: 0 10px 26px -6px rgba(150, 112, 12, 0.55);
+}
+
+.gold:hover {
+  box-shadow: 0 16px 34px -6px rgba(150, 112, 12, 0.65), 0 0 0 2px rgba(255, 255, 255, 0.25);
 }
 
 .secondary {

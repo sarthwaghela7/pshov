@@ -537,12 +537,11 @@ export default function HomePage() {
       <section className={`${styles.closingCTA} section`} ref={ctaRef}>
         <div className={styles.sectionBackdrop} aria-hidden="true" />
         <Reveal>
-        <div className="container" style={{ textAlign: 'center' }}>
+        <div className={`container ${styles.closingBox}`} style={{ textAlign: 'center' }}>
           <AnimatedText
             text="Something here catch your eye?"
             as="h2"
             animation="words"
-            gradient
             centered
           />
           <motion.p
@@ -560,7 +559,7 @@ export default function HomePage() {
               transition={{ delay: 0.5, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             >
               <Link to="/contact">
-              <Button variant="primary" glowing>
+              <Button variant="secondary" glowing>
                 Invest
               </Button>
             </Link>
@@ -571,7 +570,7 @@ export default function HomePage() {
               transition={{ delay: 0.6, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             >
               <Link to="/contact">
-              <Button variant="outline">Work With Me</Button>
+              <Button variant="glassOutline">Work With Me</Button>
             </Link>
             </motion.div>
             <motion.div
@@ -580,7 +579,7 @@ export default function HomePage() {
               transition={{ delay: 0.7, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             >
               <Link to="/contact">
-              <Button variant="outline">Grow With Me</Button>
+              <Button variant="glassOutline">Grow With Me</Button>
             </Link>
             </motion.div>
           </div>

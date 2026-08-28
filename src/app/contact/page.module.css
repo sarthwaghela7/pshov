@@ -22,6 +22,21 @@
   pointer-events: none;
 }
 
+@media (min-width: 1025px) {
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(30rem 20rem at -8% 108%, var(--color-accent-glow) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  .pillarIcon {
+    background: rgba(240, 185, 11, 0.12);
+    color: var(--color-gold-dark);
+  }
+}
+
 .heroContent {
   max-width: 100%;
 }
