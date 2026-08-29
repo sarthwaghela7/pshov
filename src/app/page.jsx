@@ -94,10 +94,10 @@ const pillars = [
 
 /* ============ Stats Strip Data ============ */
 const stats = [
-  { icon: <Building2 size={22} />, value: '3+', label: 'Active Ventures' },
-  { icon: <Users size={22} />, value: '10+', label: 'Team Members' },
-  { icon: <Rocket size={22} />, value: '5+', label: 'Services Shipped' },
-  { icon: <Star size={22} />, value: '100%', label: 'Founder-Led' },
+  { icon: <Building2 size={22} />, value: '5', label: 'In-house Ventures' },
+  { icon: <Cog size={22} />, value: '10+', label: 'Services' },
+  { icon: <Users size={22} />, value: '15+', label: 'Venture Collaborations' },
+  { icon: <Star size={22} />, value: '100%', label: 'Impact Driven' },
 ];
 
 export default function HomePage() {
@@ -519,6 +519,11 @@ export default function HomePage() {
             >
               <div className={styles.founderGlow} />
               <div className={styles.founderRing} aria-hidden="true" />
+              <img
+                src="/images/pratap-outdoor.jpg"
+                alt="Pratap Sonkar outdoors"
+                className={styles.founderPhoto}
+              />
               <div className={styles.founderChip} style={{ '--chip-x': '-8%', '--chip-y': '12%' }}>
                 <Layers size={16} />
                 <span>Multi-venture</span>

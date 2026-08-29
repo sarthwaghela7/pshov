@@ -992,6 +992,18 @@
   animation: founderRingSpin 40s linear infinite;
 }
 
+.founderPhoto {
+  position: relative;
+  z-index: 1;
+  width: 78%;
+  height: 88%;
+  object-fit: cover;
+  object-position: center 35%;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(30, 58, 95, 0.14);
+  box-shadow: var(--shadow-xl);
+}
+
 @keyframes founderRingSpin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
@@ -1005,6 +1017,7 @@
 
 .founderChip {
   position: absolute;
+  z-index: 2;
   left: var(--chip-x, 0%);
   top: var(--chip-y, 0%);
   display: inline-flex;
