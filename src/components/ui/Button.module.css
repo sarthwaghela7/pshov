@@ -37,22 +37,22 @@
 .primary {
   background: linear-gradient(135deg, var(--color-accent-dark) 0%, var(--color-accent) 100%);
   color: #fff;
-  box-shadow: 0 10px 24px -8px rgba(15, 36, 64, 0.45);
+  box-shadow: 0 10px 24px -8px rgba(0, 0, 0, 0.45);
 }
 
 .primary:hover {
-  box-shadow: 0 14px 32px -8px rgba(15, 36, 64, 0.55), 0 0 0 2px rgba(240, 185, 11, 0.3);
+  box-shadow: 0 14px 32px -8px rgba(0, 0, 0, 0.55), 0 0 0 2px rgba(3, 58, 124, 0.3);
 }
 
 .gold {
-  background: linear-gradient(135deg, var(--color-gold-light) 0%, var(--color-gold) 60%, var(--color-gold-dark) 100%);
-  color: #1a1305;
+  background: linear-gradient(135deg, var(--color-accent-light) 0%, var(--color-accent) 60%, var(--color-accent-dark) 100%);
+  color: #fff;
   font-weight: var(--weight-semibold);
-  box-shadow: 0 10px 26px -6px rgba(150, 112, 12, 0.55);
+  box-shadow: 0 10px 26px -6px rgba(3, 58, 124, 0.45);
 }
 
 .gold:hover {
-  box-shadow: 0 16px 34px -6px rgba(150, 112, 12, 0.65), 0 0 0 2px rgba(255, 255, 255, 0.25);
+  box-shadow: 0 16px 34px -6px rgba(3, 58, 124, 0.55), 0 0 0 2px rgba(255, 255, 255, 0.25);
 }
 
 .secondary {
@@ -87,14 +87,14 @@
 }
 
 /* ---- Liquid Glass ----
-   A refractive, layered glass look (à la iOS "Liquid Glass"):
+   A refractive, layered glass look (Ã  la iOS "Liquid Glass"):
    a soft tinted body, a bright specular highlight arc across the
    top, and a thin dark inner edge at the bottom for depth. */
 .glass {
   position: relative;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.04) 42%, rgba(0, 0, 0, 0.22) 100%),
-    rgba(20, 20, 20, 0.45);
+    rgba(0, 0, 0, 0.45);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   color: #ffffff;
@@ -133,7 +133,7 @@
   position: relative;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.24) 0%, rgba(255, 255, 255, 0.05) 45%, rgba(0, 0, 0, 0.1) 100%),
-    rgba(10, 10, 10, 0.1);
+    rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   color: #ffffff;
@@ -173,7 +173,7 @@
 }
 
 .glowing {
-  /* No glow in light mode — just a subtle shadow pulse */
+  /* No glow in light mode â€” just a subtle shadow pulse */
   animation: subtle-lift 2s ease-in-out infinite;
 }
 

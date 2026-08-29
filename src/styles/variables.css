@@ -1,6 +1,6 @@
 /* ============================================
-   P.Sonkar House of Ventures — Design Tokens
-   LIGHT MODE — Premium Professional
+   P.Sonkar House of Ventures â€” Design Tokens
+   LIGHT MODE â€” Premium Professional
    ============================================ */
 
 :root {
@@ -9,50 +9,50 @@
   --logo-footer-width: min(320px, 100%);
   --logo-mark-size: 42px;
 
-  /* ---- Color Palette — Light Mode ---- */
+  /* ---- Color Palette â€” Light Mode ---- */
 
   /* Base / Background */
   --color-bg-primary: #ffffff;
-  --color-bg-secondary: #f8f9fc;
-  --color-bg-tertiary: #f0f2f7;
+  --color-bg-secondary: #afc3e2;
+  --color-bg-tertiary: #7197cd;
   --color-bg-card: rgba(255, 255, 255, 0.85);
   --color-bg-card-hover: rgba(255, 255, 255, 1);
   --color-bg-glass: rgba(255, 255, 255, 0.6);
   --color-bg-glass-border: rgba(0, 0, 0, 0.06);
-  --color-bg-hero: #f4f6fb;
+  --color-bg-hero: #afc3e2;
 
   /* Text */
-  --color-text-primary: #111827;
-  --color-text-secondary: #4b5563;
-  --color-text-tertiary: #6b7280;
-  --color-text-muted: #9ca3af;
+  --color-text-primary: #000000;
+  --color-text-secondary: #4f4d41;
+  --color-text-tertiary: #58595b;
+  --color-text-muted: #6d6e71;
 
-  /* Accent — Deep Indigo/Blue */
-  --color-accent: #1e3a5f;
-  --color-accent-light: #2d5a8e;
-  --color-accent-dark: #0f2440;
-  --color-accent-glow: rgba(30, 58, 95, 0.15);
-  --color-accent-subtle: rgba(30, 58, 95, 0.06);
-  --color-accent-bg: #eef2f9;
+  /* Accent â€” Deep Indigo/Blue */
+  --color-accent: #033a7c;
+  --color-accent-light: #2f5c9c;
+  --color-accent-dark: #033a7c;
+  --color-accent-glow: rgba(3, 58, 124, 0.15);
+  --color-accent-subtle: rgba(3, 58, 124, 0.06);
+  --color-accent-bg: #afc3e2;
 
-  /* Secondary — Warm Gold */
-  --color-gold: #b8860b;
-  --color-gold-light: #d4a017;
-  --color-gold-dark: #8b6508;
-  --color-gold-glow: rgba(184, 134, 11, 0.15);
-  --color-gold-bg: #fdf8ee;
+  /* Secondary â€” Warm Gold */
+  --color-gold: #5f84b9;
+  --color-gold-light: #7197cd;
+  --color-gold-dark: #2f5c9c;
+  --color-gold-glow: rgba(95, 132, 185, 0.15);
+  --color-gold-bg: #afc3e2;
 
-  /* Tertiary — Teal */
-  --color-teal: #0d7377;
-  --color-teal-light: #14b8a6;
-  --color-teal-dark: #0a5c5f;
-  --color-teal-glow: rgba(13, 115, 119, 0.15);
-  --color-teal-bg: #eef9f8;
+  /* Tertiary â€” Teal */
+  --color-teal: #5f84b9;
+  --color-teal-light: #7197cd;
+  --color-teal-dark: #2f5c9c;
+  --color-teal-glow: rgba(95, 132, 185, 0.15);
+  --color-teal-bg: #afc3e2;
 
   /* Status */
-  --color-success: #16a34a;
-  --color-warning: #d97706;
-  --color-error: #dc2626;
+  --color-success: #2f5c9c;
+  --color-warning: #5f84b9;
+  --color-error: #4f4d41;
   --color-info: var(--color-accent);
 
   /* Venture Stage Colors */
@@ -168,18 +168,18 @@
 @media (min-width: 1025px) {
   :root {
     /* Brighter, richer gold for a premium feel */
-    --color-gold: #c9971e;
-    --color-gold-light: #f0b90b;
-    --color-gold-dark: #96700c;
-    --color-gold-glow: rgba(240, 185, 11, 0.22);
-    --color-gold-bg: #fdf6e3;
+    --color-gold: #5f84b9;
+    --color-gold-light: #7197cd;
+    --color-gold-dark: #2f5c9c;
+    --color-gold-glow: rgba(95, 132, 185, 0.22);
+    --color-gold-bg: #afc3e2;
 
     /* Tighter line rhythm */
     --leading-tight: 1.06;
     --leading-snug: 1.2;
     --leading-relaxed: 1.6;
 
-    /* Denser section rhythm — less empty space between blocks */
+    /* Denser section rhythm â€” less empty space between blocks */
     --section-padding-y: clamp(3rem, 2.4rem + 2.6vw, 5.5rem);
     --space-16: 3.25rem;
     --space-20: 4.25rem;

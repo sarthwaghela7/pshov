@@ -24,7 +24,7 @@
   right: 0;
   bottom: -1px;
   height: 2px;
-  background: linear-gradient(90deg, transparent, var(--color-gold-light) 50%, transparent);
+  background: linear-gradient(90deg, transparent, var(--color-accent-light) 50%, transparent);
 }
 
 .inner {
@@ -101,7 +101,7 @@
 }
 
 .navLink.active {
-  color: var(--color-gold-dark);
+  color: var(--color-accent-dark);
 }
 
 .activeIndicator {
@@ -111,7 +111,7 @@
   transform: translateX(-50%);
   width: 20px;
   height: 2px;
-  background: var(--color-gold-light);
+  background: var(--color-accent-light);
   border-radius: var(--radius-full);
 }
 

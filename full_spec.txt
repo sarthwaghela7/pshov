@@ -21,7 +21,7 @@ Ideas in Motion. Ventures in Progress.
 H1 Headline:
 P.Sonkar House Of Ventures
 Sub-headline:
-A founder-led ecosystem built around the ventures I build, the people I work with, and the opportunities I create. Based in Bangalore.
+A founder-led<br></br>ecosystem built around the ventures I build, the people I work with, and the opportunities I create. Based in Bangalore.
 Three Primary CTAs (in this order):
 	•	Explore Ventures
 	•	Explore Services

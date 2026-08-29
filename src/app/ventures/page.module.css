@@ -16,7 +16,7 @@
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(34rem 22rem at 108% -6%, var(--color-gold-glow) 0%, transparent 65%),
+      radial-gradient(34rem 22rem at 108% -6%, var(--color-accent-glow) 0%, transparent 65%),
       radial-gradient(28rem 20rem at -8% 106%, var(--color-accent-glow) 0%, transparent 65%);
     pointer-events: none;
   }
@@ -26,8 +26,8 @@
   }
 
   .cardNumber {
-    border-color: rgba(240, 185, 11, 0.35);
-    color: var(--color-gold-dark);
+    border-color: rgba(3, 58, 124, 0.35);
+    color: var(--color-accent-dark);
   }
 }
 
@@ -89,7 +89,7 @@
   height: calc(100% - var(--space-2));
   background: var(--color-accent);
   border-radius: 100px;
-  box-shadow: 0 2px 8px rgba(30, 58, 95, 0.2);
+  box-shadow: 0 2px 8px rgba(3, 58, 124, 0.2);
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   z-index: 1;
 }
@@ -134,7 +134,7 @@
   width: min(13rem, 30vw);
   height: 1px;
   overflow: hidden;
-  background: rgba(30, 58, 95, 0.15);
+  background: rgba(3, 58, 124, 0.15);
 }
 
 .showcaseProgressFill {
@@ -157,8 +157,8 @@
 
 .card {
   position: relative;
-  background: linear-gradient(145deg, #ffffff 0%, #f3f6fb 100%);
-  border: 1px solid rgba(30, 58, 95, 0.14);
+  background: linear-gradient(145deg, #ffffff 0%, #afc3e2 100%);
+  border: 1px solid rgba(3, 58, 124, 0.14);
   border-radius: var(--radius-xl);
   display: flex;
   flex-direction: row;
@@ -167,7 +167,7 @@
   overflow: hidden;
   opacity: 0.56;
   transform: scale(0.975);
-  box-shadow: 0 4px 10px rgba(15, 36, 64, 0.08), 0 16px 30px -18px rgba(15, 36, 64, 0.3);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08), 0 16px 30px -18px rgba(0, 0, 0, 0.3);
   transition: opacity 500ms var(--ease-out-expo), transform 500ms var(--ease-out-expo), border-color 300ms ease, box-shadow 500ms var(--ease-out-expo), background 300ms ease;
   will-change: transform, opacity;
 }
@@ -177,7 +177,7 @@
   position: absolute;
   inset: 0 0 auto;
   height: 4px;
-  background: linear-gradient(90deg, var(--color-accent), var(--color-gold-light) 60%, var(--color-gold) 100%);
+  background: linear-gradient(90deg, var(--color-accent), var(--color-accent-light) 60%, var(--color-accent-dark) 100%);
   z-index: 1;
 }
 
@@ -195,15 +195,15 @@
 }
 
 .card:hover {
-  border-color: rgba(240, 185, 11, 0.4);
+  border-color: rgba(95, 132, 185, 0.4);
 }
 
 .cardActive,
 .card:hover {
   opacity: 1;
   transform: scale(1);
-  background: linear-gradient(145deg, #ffffff 0%, #edf3fb 100%);
-  box-shadow: 0 10px 18px rgba(15, 36, 64, 0.12), 0 30px 50px -22px rgba(15, 36, 64, 0.42), 0 0 0 1px rgba(240, 185, 11, 0.12);
+  background: linear-gradient(145deg, #ffffff 0%, #afc3e2 100%);
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.12), 0 30px 50px -22px rgba(0, 0, 0, 0.42), 0 0 0 1px rgba(95, 132, 185, 0.12);
 }
 
 .cardActive::before,
@@ -220,7 +220,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-right: 1px solid rgba(30, 58, 95, 0.1);
+  border-right: 1px solid rgba(3, 58, 124, 0.1);
   color: var(--color-text-tertiary);
   font-size: var(--text-sm);
   font-weight: var(--weight-medium);
@@ -254,14 +254,14 @@
   width: 2.1rem;
   height: 2.1rem;
   margin-bottom: var(--space-6);
-  background: linear-gradient(150deg, var(--color-gold-light), var(--color-gold-dark));
+  background: linear-gradient(150deg, var(--color-accent-light), var(--color-accent-dark));
   border-radius: var(--radius-full);
   color: #fff;
   font-family: var(--font-heading);
   font-size: var(--text-xs);
   font-weight: var(--weight-semibold);
   letter-spacing: var(--tracking-wide);
-  box-shadow: 0 6px 14px -6px rgba(15, 36, 64, 0.45);
+  box-shadow: 0 6px 14px -6px rgba(0, 0, 0, 0.45);
 }
 
 .cardTitle {
@@ -345,7 +345,7 @@
   justify-content: center;
   width: 100%;
   padding: var(--space-3) var(--space-4);
-  background: #25D366; /* WhatsApp Green */
+  background: #2f5c9c; /* WhatsApp Green */
   color: white;
   border: none;
   border-radius: var(--radius-md);
@@ -356,7 +356,7 @@
 }
 
 .whatsappBtn:hover {
-  background: #1ebc5a;
+  background: #033a7c;
 }
 
 /* ---- Closing CTA ---- */
@@ -410,7 +410,7 @@
     height: 200px;
     min-height: 0;
     border-right: 0;
-    border-bottom: 1px solid rgba(30, 58, 95, 0.1);
+    border-bottom: 1px solid rgba(3, 58, 124, 0.1);
   }
 
   .imagePlaceholder img {

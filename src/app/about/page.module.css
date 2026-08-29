@@ -16,7 +16,7 @@
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(34rem 22rem at 106% -8%, var(--color-gold-glow) 0%, transparent 65%),
+      radial-gradient(34rem 22rem at 106% -8%, var(--color-accent-glow) 0%, transparent 65%),
       radial-gradient(30rem 22rem at -8% 108%, var(--color-accent-glow) 0%, transparent 65%);
     pointer-events: none;
   }
@@ -117,12 +117,12 @@
   flex-direction: column;
   gap: var(--space-2);
   padding: var(--space-6) 0 var(--space-6) var(--space-12);
-  border-top: 1px solid rgba(30, 58, 95, 0.12);
+  border-top: 1px solid rgba(3, 58, 124, 0.12);
   transition: background 220ms var(--ease-out-expo), padding-left 220ms var(--ease-out-expo);
 }
 
 .principle:last-child {
-  border-bottom: 1px solid rgba(30, 58, 95, 0.12);
+  border-bottom: 1px solid rgba(3, 58, 124, 0.12);
 }
 
 .principle:hover {
@@ -144,7 +144,7 @@
 
 @media (min-width: 1025px) {
   .principleNumber {
-    color: var(--color-gold-dark);
+    color: var(--color-accent-dark);
   }
 }
 
@@ -159,7 +159,7 @@
   margin-top: var(--space-8);
   padding: var(--space-8);
   background: linear-gradient(135deg, var(--color-bg-secondary), var(--color-accent-bg));
-  border: 1px solid rgba(30, 58, 95, 0.12);
+  border: 1px solid rgba(3, 58, 124, 0.12);
   border-radius: var(--radius-md);
   overflow: hidden;
 }

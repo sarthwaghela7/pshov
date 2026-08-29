@@ -1,10 +1,19 @@
 import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
+import { BriefcaseBusiness, Handshake, House, Info, Layers } from 'lucide-react';
 import { useReducedMotion } from '@/hooks/useReducedMotion';
 import styles from './PageTransition.module.css';
 
 const routeOrder = ['/', '/about', '/ventures', '/services', '/contact'];
+
+const transitionDetails = {
+  '/': { label: 'Home', detail: 'P. Sonkar House of Ventures', Icon: House },
+  '/about': { label: 'About', detail: 'Founder-led ecosystem', Icon: Info },
+  '/ventures': { label: 'Ventures', detail: 'Ideas in motion', Icon: Layers },
+  '/services': { label: 'Services', detail: 'Built to move businesses forward', Icon: BriefcaseBusiness },
+  '/contact': { label: 'Get involved', detail: 'Start a conversation', Icon: Handshake },
+};
 
 function getDirection(previousPath, nextPath) {
   const previousIndex = routeOrder.indexOf(previousPath);
@@ -72,6 +81,7 @@ export default function PageTransition({ renderPage }) {
     : transition?.phase === 'revealing'
       ? 'enter'
       : 'visible';
+  const transitionDetail = transition ? transitionDetails[transition.path] || transitionDetails['/'] : null;
 
   return (
     <div className={styles.root}>
@@ -102,15 +112,17 @@ export default function PageTransition({ renderPage }) {
               : { duration: 0.85, ease: [0.65, 0, 0.35, 1] }}
             aria-hidden="true"
           >
-            <motion.span
-              className={styles.label}
+            <motion.div
+              className={styles.transitionContent}
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={{ delay: prefersReducedMotion ? 0 : 0.28, duration: prefersReducedMotion ? 0.16 : 0.4, ease: 'easeInOut' }}
             >
-              {transition.path === '/' ? 'Home' : transition.path.slice(1).replace('-', ' ')}
-            </motion.span>
+              <span className={styles.iconFrame}><transitionDetail.Icon strokeWidth={1.35} /></span>
+              <span className={styles.label}>{transitionDetail.label}</span>
+              <span className={styles.detail}>{transitionDetail.detail}</span>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
