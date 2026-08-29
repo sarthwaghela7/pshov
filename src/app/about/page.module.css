@@ -3,8 +3,8 @@
    ============================================ */
 
 .hero {
-  padding-top: var(--space-32);
-  padding-bottom: var(--space-16);
+  padding-top: var(--hero-padding-top);
+  padding-bottom: var(--hero-padding-bottom);
   background: var(--color-bg-hero);
   position: relative;
   overflow: hidden;
@@ -23,7 +23,8 @@
 }
 
 .heroContent {
-  max-width: 100%;
+  width: 100%;
+  max-width: var(--hero-content-width);
   will-change: transform, opacity;
 }
 
@@ -31,6 +32,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.24em;
+  letter-spacing: 0;
 }
 
 .heroWordMask {

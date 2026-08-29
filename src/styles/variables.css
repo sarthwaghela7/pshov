@@ -9,6 +9,11 @@
   --logo-footer-width: min(320px, 100%);
   --logo-mark-size: 42px;
 
+  /* Shared internal-page hero rhythm */
+  --hero-content-width: 60rem;
+  --hero-padding-top: var(--space-32);
+  --hero-padding-bottom: var(--space-16);
+
   /* ---- Color Palette — Light Mode ---- */
 
   /* Base / Background */
