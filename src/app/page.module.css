@@ -468,9 +468,9 @@
 .mobileHeroCtaVentures,
 .mobileHeroCtaServices,
 .mobileHeroCtaInvolved {
-  height: 2.75rem;
-  padding: 0 var(--space-5);
-  font-size: 0.9rem;
+  height: 3rem;
+  padding: 0 var(--space-6);
+  font-size: 0.96rem;
   font-weight: var(--weight-semibold);
   letter-spacing: -0.02em;
   border: 1px solid rgba(255, 255, 255, 0.38);
@@ -1031,10 +1031,11 @@
   position: relative;
   z-index: 1;
   width: 78%;
-  height: 88%;
+  aspect-ratio: 1;
+  height: auto;
   object-fit: cover;
   object-position: center 35%;
-  border-radius: var(--radius-lg);
+  border-radius: 50%;
   border: 1px solid rgba(30, 58, 95, 0.14);
   box-shadow: var(--shadow-xl);
 }
