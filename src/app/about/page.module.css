@@ -3,8 +3,8 @@
    ============================================ */
 
 .hero {
-  padding-top: var(--space-32);
-  padding-bottom: var(--space-16);
+  padding-top: var(--hero-padding-top);
+  padding-bottom: var(--hero-padding-bottom);
   background: var(--color-bg-hero);
   position: relative;
   overflow: hidden;
@@ -23,7 +23,8 @@
 }
 
 .heroContent {
-  max-width: 100%;
+  width: 100%;
+  max-width: var(--hero-content-width);
   will-change: transform, opacity;
 }
 
@@ -31,6 +32,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 0.24em;
+  letter-spacing: 0;
 }
 
 .heroWordMask {
@@ -87,6 +89,22 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-12);
+}
+
+.storyPortrait {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(30, 58, 95, 0.12);
+  box-shadow: var(--shadow-md);
+}
+
+.storyPortrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 32%;
 }
 
 .prose {
@@ -296,5 +314,15 @@
   .closingButtons,
   .closingButtons > * {
     width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .storyPortrait {
+    aspect-ratio: 4 / 5;
+  }
+
+  .storyPortrait img {
+    object-position: center 40%;
   }
 }
