@@ -192,6 +192,7 @@ export default function HomePage() {
       <section ref={heroRef} className={styles.hero} onMouseMove={handleHeroPointerMove} onMouseLeave={resetHeroPointer}>
         {/* Background Gradient */}
         <div className={styles.heroBackground} />
+        <div className={styles.heroDotGrid} aria-hidden="true" />
         {/* Content Container */}
         <div className={`${styles.heroContainer} container`}>
           
@@ -247,7 +248,6 @@ export default function HomePage() {
               transition={{ delay: 0.2, duration: 1, ease: [0.16, 1, 0.3, 1] }}
             >
               <div className={styles.heroAmbientGlow} aria-hidden="true" />
-              <div className={styles.heroDotGrid} aria-hidden="true" />
               <motion.img
                 src="/images/founder_white_bg.png"
                 alt="Pratap Sonkar - Founder"

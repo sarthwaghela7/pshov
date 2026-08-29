@@ -3,6 +3,52 @@
 -- services: id, name, description, image_url, display_order, is_active
 -- contact_settings: one row containing the public admin contact details
 
+-- Admins are controlled here, separate from the Supabase Auth account itself.
+-- The first run preserves access for existing Auth users; after that, this list
+-- is managed from the Admin access screen in the site.
+create table if not exists public.admin_access (
+  email text primary key check (email = lower(email)),
+  is_active boolean not null default true,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+insert into public.admin_access (email)
+select lower(email)
+from auth.users
+where email is not null
+on conflict (email) do nothing;
+
+alter table public.admin_access enable row level security;
+
+create or replace function public.is_active_admin()
+returns boolean
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  select exists (
+    select 1
+    from public.admin_access
+    where email = lower(coalesce(auth.jwt() ->> 'email', ''))
+      and is_active = true
+  );
+$$;
+
+grant execute on function public.is_active_admin() to authenticated;
+
+drop policy if exists "Active admins can view admin access" on public.admin_access;
+drop policy if exists "Active admins can manage admin access" on public.admin_access;
+
+create policy "Active admins can view admin access"
+  on public.admin_access for select to authenticated
+  using (public.is_active_admin());
+
+create policy "Active admins can manage admin access"
+  on public.admin_access for all to authenticated
+  using (public.is_active_admin()) with check (public.is_active_admin());
+
 create table if not exists public.contact_settings (
   id bigint primary key default 1 check (id = 1),
   primary_email text,
@@ -25,7 +71,7 @@ create policy "Public can read contact settings"
 
 create policy "Authenticated admins manage contact settings"
   on public.contact_settings for all to authenticated
-  using (true) with check (true);
+  using (public.is_active_admin()) with check (public.is_active_admin());
 
 insert into public.contact_settings (id, primary_email, primary_whatsapp, linkedin_url, instagram_url, twitter_url, location)
 values (1, 'hello@psonkarventures.com', '+919876543210', 'https://linkedin.com/in/pratapsonkar', 'https://instagram.com/psonkarventures', 'https://twitter.com/pratapsonkar', 'Bangalore, Karnataka, India')
@@ -53,11 +99,11 @@ create policy "Public can read active services"
 
 create policy "Authenticated admins manage ventures"
   on public.ventures for all to authenticated
-  using (true) with check (true);
+  using (public.is_active_admin()) with check (public.is_active_admin());
 
 create policy "Authenticated admins manage services"
   on public.services for all to authenticated
-  using (true) with check (true);
+  using (public.is_active_admin()) with check (public.is_active_admin());
 
 -- Keep one database record per portfolio name, including duplicates already present.
 with ranked_ventures as (
@@ -123,13 +169,13 @@ create policy "Public can view site assets"
 
 create policy "Authenticated admins upload site assets"
   on storage.objects for insert to authenticated
-  with check (bucket_id = 'website-images');
+  with check (bucket_id = 'website-images' and public.is_active_admin());
 
 create policy "Authenticated admins update site assets"
   on storage.objects for update to authenticated
-  using (bucket_id = 'website-images')
-  with check (bucket_id = 'website-images');
+  using (bucket_id = 'website-images' and public.is_active_admin())
+  with check (bucket_id = 'website-images' and public.is_active_admin());
 
 create policy "Authenticated admins delete site assets"
   on storage.objects for delete to authenticated
-  using (bucket_id = 'website-images');
+  using (bucket_id = 'website-images' and public.is_active_admin());

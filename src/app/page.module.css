@@ -325,7 +325,7 @@
 
 .heroDotGrid {
   position: absolute;
-  inset: -6% -14%;
+  inset: 0;
   z-index: 0;
   background-image: radial-gradient(rgba(3, 58, 124, 0.16) 1.5px, transparent 1.5px);
   background-size: 22px 22px;
@@ -1390,6 +1390,10 @@
   .heroRight {
     grid-row: 3;
     transform: none;
+  }
+
+  .founderVisual {
+    order: -1;
   }
 
   .heroRightTitle {

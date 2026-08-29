@@ -5,9 +5,11 @@ import {
   LayoutDashboard,
   Mail,
   LogOut,
+  KeyRound,
   Pencil,
   Plus,
   Trash2,
+  UsersRound,
   X,
 } from "lucide-react";
 import {
@@ -16,11 +18,16 @@ import {
   getServices,
   getVentures,
   getContactSettings,
+  getAdminAccess,
   getSession,
+  hasAdminAccess,
   saveContent,
   saveContactSettings,
   signIn,
   signOut,
+  saveAdminAccess,
+  setAdminAccess,
+  updateAdminCredentials,
   uploadImage,
 } from "@/api";
 import styles from "./adminpanel.module.css";
@@ -47,6 +54,13 @@ function countWords(value) {
   return value.trim().split(/\s+/).filter(Boolean).length;
 }
 
+function adminAccessErrorMessage(error) {
+  if (error?.code === "42P01" || error?.code === "42883" || error?.message?.includes("admin_access") || error?.message?.includes("is_active_admin")) {
+    return "Admin access is not configured in Supabase yet. Run supabase/schema.sql in the Supabase SQL Editor, then refresh this page.";
+  }
+  return error?.message || "Could not update admin access.";
+}
+
 export default function AdminPanel() {
   const [type, setType] = useState("ventures");
   const [items, setItems] = useState([]);
@@ -56,14 +70,36 @@ export default function AdminPanel() {
   const [user, setUser] = useState(null);
   const [credentials, setCredentials] = useState({ email: "", password: "" });
   const [contactSettings, setContactSettings] = useState(null);
+  const [accountSettings, setAccountSettings] = useState({ email: "", password: "", confirmPassword: "" });
+  const [adminAccess, setAdminAccess] = useState([]);
+  const [newAdminEmail, setNewAdminEmail] = useState("");
 
   useEffect(() => {
-    getSession()?.then(({ data }) => setUser(data.session?.user || null));
+    async function restoreSession() {
+      const result = await getSession();
+      const sessionUser = result?.data.session?.user;
+      if (!sessionUser) return;
+      try {
+        if (await hasAdminAccess()) setUser(sessionUser);
+        else {
+          await signOut();
+          setMessage("This account no longer has admin access.");
+        }
+      } catch (error) {
+        setMessage(adminAccessErrorMessage(error));
+      }
+    }
+    restoreSession();
   }, []);
   useEffect(() => {
-    if (user && type !== "contact") loadItems();
-    if (user && type === "contact") getContactSettings().then(setContactSettings);
+    if (!user) return;
+    if (type === "contact") getContactSettings().then(setContactSettings);
+    else if (type === "access") loadAdminAccess();
+    else if (type !== "account") loadItems();
   }, [type, user]);
+  useEffect(() => {
+    if (user?.email) setAccountSettings({ email: user.email, password: "", confirmPassword: "" });
+  }, [user]);
   async function loadItems() {
     setItems(type === "ventures" ? await getVentures() : await getServices());
   }
@@ -108,6 +144,74 @@ export default function AdminPanel() {
     }
   }
 
+  async function loadAdminAccess() {
+    try {
+      setAdminAccess(await getAdminAccess());
+    } catch (error) {
+      setMessage(adminAccessErrorMessage(error));
+    }
+  }
+
+  async function handleAccountSubmit(event) {
+    event.preventDefault();
+    if (accountSettings.password !== accountSettings.confirmPassword) {
+      setMessage("The new password and confirmation do not match.");
+      return;
+    }
+    if (accountSettings.password && accountSettings.password.length < 8) {
+      setMessage("Use a password of at least 8 characters.");
+      return;
+    }
+    setBusy(true);
+    setMessage("");
+    try {
+      const updatedUser = await updateAdminCredentials(accountSettings);
+      setUser(updatedUser);
+      setAccountSettings((current) => ({ ...current, password: "", confirmPassword: "" }));
+      setMessage("Account credentials updated. Confirm the email change if Supabase sends a verification email.");
+    } catch (error) {
+      setMessage(adminAccessErrorMessage(error));
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function handleAdminAccessSubmit(event) {
+    event.preventDefault();
+    setBusy(true);
+    setMessage("");
+    try {
+      await saveAdminAccess(newAdminEmail);
+      setNewAdminEmail("");
+      await loadAdminAccess();
+      setMessage("Admin access granted.");
+    } catch (error) {
+      setMessage(adminAccessErrorMessage(error));
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function handleAdminAccessChange(email, isActive) {
+    const action = isActive ? "restore" : "revoke";
+    if (!window.confirm(`${action[0].toUpperCase()}${action.slice(1)} admin access for ${email}?`)) return;
+    setBusy(true);
+    setMessage("");
+    try {
+      await setAdminAccess(email, isActive);
+      await loadAdminAccess();
+      setMessage(`Admin access ${isActive ? "restored" : "revoked"}.`);
+      if (!isActive && user?.email?.toLowerCase() === email.toLowerCase()) {
+        await signOut();
+        setUser(null);
+      }
+    } catch (error) {
+      setMessage(adminAccessErrorMessage(error));
+    } finally {
+      setBusy(false);
+    }
+  }
+
   async function handleDelete(id) {
     if (!window.confirm("Delete this item permanently?")) return;
     try {
@@ -144,9 +248,13 @@ export default function AdminPanel() {
     try {
       const result = await signIn(credentials.email, credentials.password);
       if (result.error) throw result.error;
+      if (!(await hasAdminAccess())) {
+        await signOut();
+        throw new Error("This account does not have admin access.");
+      }
       setUser(result.data.user);
     } catch (error) {
-      setMessage(error.message);
+      setMessage(adminAccessErrorMessage(error));
     } finally {
       setBusy(false);
     }
@@ -251,6 +359,26 @@ export default function AdminPanel() {
             <Mail size={17} /> Contact details{" "}
             <span>{type === "contact" ? "•" : ""}</span>
           </button>
+          <button
+            className={type === "account" ? styles.navActive : styles.navItem}
+            onClick={() => {
+              setType("account");
+              resetForm();
+            }}
+          >
+            <KeyRound size={17} /> Admin credentials
+            <span>{type === "account" ? "•" : ""}</span>
+          </button>
+          <button
+            className={type === "access" ? styles.navActive : styles.navItem}
+            onClick={() => {
+              setType("access");
+              resetForm();
+            }}
+          >
+            <UsersRound size={17} /> Admin access
+            <span>{type === "access" ? "•" : ""}</span>
+          </button>
         </nav>
         <div className={styles.sidebarFoot}>
           <span className={styles.userDot} />
@@ -269,14 +397,73 @@ export default function AdminPanel() {
             <p className={styles.kicker}>
               CONTENT WORKSPACE / {type.toUpperCase()}
             </p>
-            <h1>{type === "ventures" ? "Ventures" : type === "services" ? "Services" : "Contact details"}</h1>
+            <h1>{type === "ventures" ? "Ventures" : type === "services" ? "Services" : type === "contact" ? "Contact details" : type === "account" ? "Admin credentials" : "Admin access"}</h1>
           </div>
           <span className={styles.liveBadge}>
             <span /> Live database
           </span>
         </header>
         <div className={styles.contentGrid}>
-          {type === "contact" ? (
+          {type === "access" ? (
+            <section className={styles.editor}>
+              <div className={styles.sectionHeading}>
+                <div><p className={styles.kicker}>DATABASE-BACKED ACCESS LIST</p><h2>Admin access</h2></div>
+              </div>
+              <form onSubmit={handleAdminAccessSubmit} className={styles.form}>
+                <label>
+                  Email address
+                  <input type="email" required value={newAdminEmail} placeholder="admin@example.com" onChange={(event) => setNewAdminEmail(event.target.value)} />
+                </label>
+                <p className={styles.authIntro}>Granting access allows this email to use the admin panel after it signs in with its own registered Supabase account.</p>
+                <div className={styles.formActions}>
+                  <button className={styles.primaryButton} disabled={busy}>{busy ? "Saving..." : "Grant access"} <ArrowUpRight size={17} /></button>
+                </div>
+              </form>
+              <div className={styles.itemList}>
+                {adminAccess.map((admin) => (
+                  <article className={styles.item} key={admin.email}>
+                    <div className={styles.itemImage}><UsersRound size={18} /></div>
+                    <div className={styles.itemDetails}>
+                      <div className={styles.itemTitle}>
+                        <h3>{admin.email}</h3>
+                        <span className={admin.is_active ? styles.statusLive : styles.statusHidden}>{admin.is_active ? "Active" : "Revoked"}</span>
+                      </div>
+                    </div>
+                    <div className={styles.itemActions}>
+                      <button onClick={() => handleAdminAccessChange(admin.email, !admin.is_active)} disabled={busy} title={admin.is_active ? "Revoke access" : "Restore access"}>
+                        {admin.is_active ? "Revoke" : "Restore"}
+                      </button>
+                    </div>
+                  </article>
+                ))}
+              </div>
+              {message && <p className={styles.message} role="status">{message}</p>}
+            </section>
+          ) : type === "account" ? (
+            <section className={styles.editor}>
+              <div className={styles.sectionHeading}>
+                <div><p className={styles.kicker}>SUPABASE AUTH ACCOUNT</p><h2>Update sign-in details</h2></div>
+              </div>
+              <form onSubmit={handleAccountSubmit} className={styles.form}>
+                <label>
+                  Email address
+                  <input type="email" required value={accountSettings.email} onChange={(event) => setAccountSettings({ ...accountSettings, email: event.target.value })} />
+                </label>
+                <label>
+                  New password <small>Leave blank to keep the current password.</small>
+                  <input type="password" minLength="8" value={accountSettings.password} onChange={(event) => setAccountSettings({ ...accountSettings, password: event.target.value })} />
+                </label>
+                <label>
+                  Confirm new password
+                  <input type="password" minLength="8" value={accountSettings.confirmPassword} onChange={(event) => setAccountSettings({ ...accountSettings, confirmPassword: event.target.value })} />
+                </label>
+                <div className={styles.formActions}>
+                  <button className={styles.primaryButton} disabled={busy}>{busy ? "Saving..." : "Save credentials"} <ArrowUpRight size={17} /></button>
+                </div>
+                {message && <p className={styles.message} role="status">{message}</p>}
+              </form>
+            </section>
+          ) : type === "contact" ? (
             <section className={styles.editor}>
               <div className={styles.sectionHeading}>
                 <div><p className={styles.kicker}>PUBLIC FOOTER AND FORM RECIPIENT</p><h2>Contact details</h2></div>
@@ -442,7 +629,7 @@ export default function AdminPanel() {
             </form>
           </section>
           )}
-          {type !== "contact" && <section className={styles.library}>
+          {(type === "ventures" || type === "services") && <section className={styles.library}>
             <div className={styles.sectionHeading}>
               <div>
                 <p className={styles.kicker}>DATABASE RECORDS</p>

@@ -96,6 +96,64 @@ export const signOut = () => {
   return supabase.auth.signOut();
 };
 
+export async function hasAdminAccess() {
+  if (!supabase) throw new Error('Supabase is not configured.');
+  const { data, error } = await supabase.rpc('is_active_admin');
+  if (error) throw error;
+  return data === true;
+}
+
+export async function getAdminAccess() {
+  if (!supabase) return [];
+  const { data, error } = await supabase.from('admin_access').select('*').order('email');
+  if (error) throw error;
+  return data;
+}
+
+export async function saveAdminAccess(email) {
+  if (!supabase) throw new Error('Supabase is not configured.');
+  const normalizedEmail = email.trim().toLowerCase();
+  const { data, error } = await supabase
+    .from('admin_access')
+    .upsert({ email: normalizedEmail, is_active: true }, { onConflict: 'email' })
+    .select()
+    .single();
+  if (error) throw error;
+  return data;
+}
+
+export async function setAdminAccess(email, isActive) {
+  if (!supabase) throw new Error('Supabase is not configured.');
+  const { data, error } = await supabase
+    .from('admin_access')
+    .update({ is_active: isActive })
+    .eq('email', email)
+    .select()
+    .single();
+  if (error) throw error;
+  return data;
+}
+
+// Credentials are updated in Supabase Auth (auth.users), never in a public
+// application table. Supabase stores passwords securely as hashes.
+export async function updateAdminCredentials({ email, password }) {
+  if (!supabase) throw new Error('Supabase is not configured.');
+  const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+  if (sessionError) throw sessionError;
+  const currentUser = sessionData.session?.user;
+  if (!currentUser) throw new Error('Your admin session has expired. Please sign in again.');
+
+  const updates = {};
+  const nextEmail = email?.trim();
+  if (nextEmail && nextEmail !== currentUser.email) updates.email = nextEmail;
+  if (password) updates.password = password;
+  if (Object.keys(updates).length === 0) return currentUser;
+
+  const { data, error } = await supabase.auth.updateUser(updates);
+  if (error) throw error;
+  return data.user;
+}
+
 export async function saveContent(type, item) {
   const table = contentTable(type);
   if (!supabase) throw new Error('Supabase is not configured. Add VITE_SUPABASE_URL and VITE_SUPABASE_PUBLISHABLE_KEY to .env.');
