@@ -1,6 +1,6 @@
 -- Existing tables expected:
--- ventures: id, name, description, image_url, website_url, display_order, is_active
--- services: id, name, description, image_url, display_order, is_active
+-- ventures: id, name, description, detail_image_url, landing_image_url, website_url, display_order, is_active
+-- services: id, name, description, detail_image_url, landing_image_url, display_order, is_active
 -- contact_settings: one row containing the public admin contact details
 
 -- Admins are controlled here, separate from the Supabase Auth account itself.
@@ -12,6 +12,8 @@ create table if not exists public.admin_access (
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
+
+alter table public.admin_access add column if not exists revoked_at timestamptz;
 
 insert into public.admin_access (email)
 select lower(email)
@@ -49,6 +51,42 @@ create policy "Active admins can manage admin access"
   on public.admin_access for all to authenticated
   using (public.is_active_admin()) with check (public.is_active_admin());
 
+-- This RPC validates the caller before changing the target row. It safely
+-- supports self-revocation, which would otherwise fail an RLS post-update check.
+create or replace function public.set_admin_access_status(target_email text, next_is_active boolean)
+returns public.admin_access
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  changed_row public.admin_access;
+begin
+  if not public.is_active_admin() then
+    raise exception 'Only an active admin can change admin access.';
+  end if;
+
+  if not next_is_active and lower(trim(target_email)) = lower(coalesce(auth.jwt() ->> 'email', '')) then
+    raise exception 'You cannot revoke your own access. Use another active admin account.';
+  end if;
+
+  update public.admin_access
+  set is_active = next_is_active,
+      revoked_at = case when next_is_active then null else now() end,
+      updated_at = now()
+  where email = lower(trim(target_email))
+  returning * into changed_row;
+
+  if changed_row.email is null then
+    raise exception 'Admin email not found.';
+  end if;
+  return changed_row;
+end;
+$$;
+
+revoke all on function public.set_admin_access_status(text, boolean) from public;
+grant execute on function public.set_admin_access_status(text, boolean) to authenticated;
+
 create table if not exists public.contact_settings (
   id bigint primary key default 1 check (id = 1),
   primary_email text,
@@ -79,6 +117,20 @@ on conflict (id) do nothing;
 
 alter table public.ventures enable row level security;
 alter table public.services enable row level security;
+
+-- Separate assets make the intended placement unambiguous in the admin panel.
+alter table public.ventures add column if not exists detail_image_url text;
+alter table public.ventures add column if not exists landing_image_url text;
+alter table public.services add column if not exists detail_image_url text;
+alter table public.services add column if not exists landing_image_url text;
+
+-- Preserve existing uploaded images until an admin chooses distinct replacements.
+update public.ventures
+set detail_image_url = coalesce(detail_image_url, image_url),
+    landing_image_url = coalesce(landing_image_url, image_url);
+update public.services
+set detail_image_url = coalesce(detail_image_url, image_url),
+    landing_image_url = coalesce(landing_image_url, image_url);
 
 drop policy if exists "Public can read live ventures" on public.ventures;
 drop policy if exists "Public can read live services" on public.services;

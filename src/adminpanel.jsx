@@ -26,7 +26,7 @@ import {
   signIn,
   signOut,
   saveAdminAccess,
-  setAdminAccess,
+  setAdminAccess as setAdminAccessStatus,
   updateAdminCredentials,
   uploadImage,
 } from "@/api";
@@ -36,6 +36,8 @@ const emptyItem = {
   name: "",
   description: "",
   image_url: "",
+  detail_image_url: "",
+  landing_image_url: "",
   website_url: "",
   is_live: true,
   display_order: 0,
@@ -193,18 +195,23 @@ export default function AdminPanel() {
   }
 
   async function handleAdminAccessChange(email, isActive) {
+    if (!isActive && user?.email?.toLowerCase() === email.toLowerCase()) {
+      setMessage("You cannot revoke your own access while signed in. Use another active admin account to revoke this email.");
+      return;
+    }
     const action = isActive ? "restore" : "revoke";
     if (!window.confirm(`${action[0].toUpperCase()}${action.slice(1)} admin access for ${email}?`)) return;
     setBusy(true);
     setMessage("");
     try {
-      await setAdminAccess(email, isActive);
-      await loadAdminAccess();
+      await setAdminAccessStatus(email, isActive);
+      setAdminAccess((current) => current.map((admin) => (
+        admin.email === email
+          ? { ...admin, is_active: isActive, revoked_at: isActive ? null : new Date().toISOString() }
+          : admin
+      )));
       setMessage(`Admin access ${isActive ? "restored" : "revoked"}.`);
-      if (!isActive && user?.email?.toLowerCase() === email.toLowerCase()) {
-        await signOut();
-        setUser(null);
-      }
+      await loadAdminAccess();
     } catch (error) {
       setMessage(adminAccessErrorMessage(error));
     } finally {
@@ -223,14 +230,14 @@ export default function AdminPanel() {
     }
   }
 
-  async function handleImage(event) {
+  async function handleImage(event, field) {
     const file = event.target.files[0];
     if (!file) return;
     setBusy(true);
     setMessage("Uploading image...");
     try {
-      const image_url = await uploadImage(file, type);
-      setForm((current) => ({ ...current, image_url }));
+      const imageUrl = await uploadImage(file, type);
+      setForm((current) => ({ ...current, [field]: imageUrl }));
       setMessage("Image uploaded. Save to publish it.");
     } catch (error) {
       setMessage(error.message);
@@ -428,9 +435,10 @@ export default function AdminPanel() {
                         <h3>{admin.email}</h3>
                         <span className={admin.is_active ? styles.statusLive : styles.statusHidden}>{admin.is_active ? "Active" : "Revoked"}</span>
                       </div>
+                      {!admin.is_active && <small>Access revoked{admin.revoked_at ? ` on ${new Date(admin.revoked_at).toLocaleString()}` : ""}.</small>}
                     </div>
                     <div className={styles.itemActions}>
-                      <button onClick={() => handleAdminAccessChange(admin.email, !admin.is_active)} disabled={busy} title={admin.is_active ? "Revoke access" : "Restore access"}>
+                      <button type="button" onClick={() => handleAdminAccessChange(admin.email, !admin.is_active)} disabled={busy || (!admin.is_active ? false : user?.email?.toLowerCase() === admin.email.toLowerCase())} title={admin.is_active && user?.email?.toLowerCase() === admin.email.toLowerCase() ? "You cannot revoke your own access" : admin.is_active ? "Revoke access" : "Restore access"}>
                         {admin.is_active ? "Revoke" : "Restore"}
                       </button>
                     </div>
@@ -537,35 +545,52 @@ export default function AdminPanel() {
                 <small>{descriptionWords}/{DESCRIPTION_WORD_LIMIT} words</small>
               </label>
               <label>
-                Image
+                Detail-page image
                 <input
-                  value={form.image_url || ""}
+                  value={form.detail_image_url || ""}
                   onChange={(event) =>
-                    setForm({ ...form, image_url: event.target.value })
+                    setForm({ ...form, detail_image_url: event.target.value })
                   }
-                  placeholder="Paste an image URL or upload below"
+                  placeholder="Shown beside this item's description"
                 />
               </label>
               <label className={styles.uploadBox}>
                 <ImagePlus size={21} />
                 <span>
-                  <strong>Upload image</strong>
-                  <small>Stored in website-images / {type}</small>
+                  <strong>Upload detail-page image</strong>
+                  <small>Shown on the {type === "ventures" ? "ventures" : "services"} page</small>
                 </span>
                 <input
                   type="file"
                   accept="image/*"
-                  onChange={handleImage}
+                  onChange={(event) => handleImage(event, "detail_image_url")}
                   disabled={busy}
                 />
               </label>
-              {form.image_url && (
+              {form.detail_image_url && (
                 <img
                   className={styles.preview}
-                  src={getImageUrl(form.image_url)}
-                  alt="Preview"
+                  src={getImageUrl(form.detail_image_url)}
+                  alt="Detail-page preview"
                 />
               )}
+              <label>
+                Landing-page rotating-scroll image
+                <input
+                  value={form.landing_image_url || ""}
+                  onChange={(event) => setForm({ ...form, landing_image_url: event.target.value })}
+                  placeholder="Shown in the home page rotating portfolio"
+                />
+              </label>
+              <label className={styles.uploadBox}>
+                <ImagePlus size={21} />
+                <span>
+                  <strong>Upload landing-page image</strong>
+                  <small>Shown in the rotating portfolio on the landing page</small>
+                </span>
+                <input type="file" accept="image/*" onChange={(event) => handleImage(event, "landing_image_url")} disabled={busy} />
+              </label>
+              {form.landing_image_url && <img className={styles.preview} src={getImageUrl(form.landing_image_url)} alt="Landing-page preview" />}
               {type === "ventures" && (
                 <label>
                   Website URL
@@ -645,8 +670,8 @@ export default function AdminPanel() {
               {items.map((item) => (
                 <article className={styles.item} key={item.id}>
                   <div className={styles.itemImage}>
-                    {item.image_url ? (
-                      <img src={getImageUrl(item.image_url)} alt="" />
+                    {item.detail_image_url || item.image_url ? (
+                      <img src={getImageUrl(item.detail_image_url || item.image_url)} alt="" />
                     ) : (
                       <ImagePlus size={18} />
                     )}

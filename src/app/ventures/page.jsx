@@ -183,7 +183,7 @@ export default function VenturesPage() {
                     aria-current={i === activeCard ? 'step' : undefined}
                   >
                     <div className={styles.imagePlaceholder}>
-                      {venture.image_url ? <img data-venture-image src={getImageUrl(venture.image_url)} alt={venture.name} /> : <span>Image coming soon</span>}
+                      {venture.detail_image_url || venture.image_url ? <img data-venture-image src={getImageUrl(venture.detail_image_url || venture.image_url)} alt={venture.name} /> : <span>Image coming soon</span>}
                     </div>
                     <div className={styles.cardContent}>
                       <span className={styles.cardNumber} aria-label={`Venture ${i + 1}`}>
@@ -241,7 +241,7 @@ export default function VenturesPage() {
                     aria-current={i === activeCard ? 'step' : undefined}
                   >
                     <div className={styles.imagePlaceholder}>
-                      {service.image_url ? <img data-venture-image src={getImageUrl(service.image_url)} alt={service.name} /> : <span>Image coming soon</span>}
+                      {service.detail_image_url || service.image_url ? <img data-venture-image src={getImageUrl(service.detail_image_url || service.image_url)} alt={service.name} /> : <span>Image coming soon</span>}
                     </div>
                     <div className={styles.cardContent}>
                       <span className={styles.cardNumber} aria-label={`Service ${i + 1}`}>

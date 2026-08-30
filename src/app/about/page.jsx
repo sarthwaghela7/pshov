@@ -140,7 +140,7 @@ export default function AboutPage() {
         <motion.aside className={styles.sidebar} {...fadeUp(0)} animate={storyInView ? { opacity: 1, y: 0 } : {}}><SectionLabel>My Story</SectionLabel><h2 className={styles.sidebarTitle}>The Story</h2></motion.aside>
         <div className={styles.mainContent}>
           <motion.figure className={styles.storyPortrait} {...fadeUp(0.16)} animate={storyInView ? { opacity: 1, y: 0 } : {}}>
-            <img src="/images/pratap-outdoor.jpg" alt="Pratap Sonkar outdoors" />
+            <img src="/images/white_bg..jpeg" alt="Pratap Sonkar" />
           </motion.figure>
           <motion.div className={styles.prose} {...fadeUp(0.28)} animate={storyInView ? { opacity: 1, y: 0 } : {}}>
           <p data-motion="story-paragraph">P.Sonkar House Of Ventures did not come together through a single plan. It came together through years of working on things I genuinely believed needed to exist, starting from scratch, figuring things out on the ground, and building across areas I found myself drawn to.</p>

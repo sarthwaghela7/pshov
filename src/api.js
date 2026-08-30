@@ -113,23 +113,40 @@ export async function getAdminAccess() {
 export async function saveAdminAccess(email) {
   if (!supabase) throw new Error('Supabase is not configured.');
   const normalizedEmail = email.trim().toLowerCase();
-  const { data, error } = await supabase
+  let { data, error } = await supabase
     .from('admin_access')
-    .upsert({ email: normalizedEmail, is_active: true }, { onConflict: 'email' })
+    .upsert({ email: normalizedEmail, is_active: true, revoked_at: null }, { onConflict: 'email' })
     .select()
     .single();
+  // Lets an already-deployed panel keep granting access until the optional
+  // revoked_at migration has been applied.
+  if (error?.code === '42703' || error?.message?.includes('revoked_at')) {
+    ({ data, error } = await supabase
+      .from('admin_access')
+      .upsert({ email: normalizedEmail, is_active: true }, { onConflict: 'email' })
+      .select()
+      .single());
+  }
   if (error) throw error;
   return data;
 }
 
 export async function setAdminAccess(email, isActive) {
   if (!supabase) throw new Error('Supabase is not configured.');
-  const { data, error } = await supabase
-    .from('admin_access')
-    .update({ is_active: isActive })
-    .eq('email', email)
-    .select()
-    .single();
+  let { data, error } = await supabase.rpc('set_admin_access_status', {
+    target_email: email.trim().toLowerCase(),
+    next_is_active: isActive,
+  });
+  // The existing RLS policy safely permits changing another admin's status.
+  // Use it while the new RPC migration is being deployed.
+  if (error?.code === 'PGRST202' || error?.code === '42883' || error?.message?.includes('set_admin_access_status')) {
+    ({ data, error } = await supabase
+      .from('admin_access')
+      .update({ is_active: isActive })
+      .eq('email', email.trim().toLowerCase())
+      .select()
+      .single());
+  }
   if (error) throw error;
   return data;
 }
@@ -162,6 +179,8 @@ export async function saveContent(type, item) {
     name: item.name,
     description: item.description,
     image_url: item.image_url || null,
+    detail_image_url: item.detail_image_url || null,
+    landing_image_url: item.landing_image_url || null,
     is_active: item.is_live !== false,
     display_order: Number(item.display_order) || 0,
     ...(table === 'ventures' ? { website_url: item.website_url || null } : {}),

@@ -422,8 +422,8 @@ export default function HomePage() {
                 >
                   <Link to={portfolioItems[portfolioIndex].href} className={styles.portfolioLink}>
                     <div className={styles.portfolioMedia}>
-                      {portfolioItems[portfolioIndex].image_url && (
-                        <img src={getImageUrl(portfolioItems[portfolioIndex].image_url)} alt="" />
+                      {(portfolioItems[portfolioIndex].landing_image_url || portfolioItems[portfolioIndex].image_url) && (
+                        <img src={getImageUrl(portfolioItems[portfolioIndex].landing_image_url || portfolioItems[portfolioIndex].image_url)} alt="" />
                       )}
                     </div>
                     <div className={styles.portfolioSlideFooter}>
