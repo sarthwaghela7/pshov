@@ -132,16 +132,18 @@ export default function VenturesPage() {
                   style={{ transform: activeTab === 'in-house' ? 'translateX(0)' : 'translateX(100%)' }} 
                 />
                 <button
+                  type="button"
                   className={`${styles.toggleBtn} ${activeTab === 'in-house' ? styles.active : ''}`}
                   onClick={() => setActiveTab('in-house')}
                 >
-                  In-House Ventures
+                  Explore Ventures
                 </button>
                 <button
+                  type="button"
                   className={`${styles.toggleBtn} ${activeTab === 'collaborated' ? styles.active : ''}`}
                   onClick={() => setActiveTab('collaborated')}
                 >
-                  Collaborated Services
+                  Explore Services
                 </button>
               </div>
             </motion.div>

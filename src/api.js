@@ -96,6 +96,32 @@ export const signOut = () => {
   return supabase.auth.signOut();
 };
 
+export async function requestPasswordReset(email) {
+  if (!supabase) throw new Error('Supabase is not configured.');
+  const redirectTo = `${window.location.origin}${window.location.pathname}?reset=password`;
+  const { error } = await supabase.auth.resetPasswordForEmail(email.trim().toLowerCase(), { redirectTo });
+  if (error) throw error;
+}
+
+export async function resetPassword(password) {
+  if (!supabase) throw new Error('Supabase is not configured.');
+  const { data, error } = await supabase.auth.updateUser({ password });
+  if (error) throw error;
+  return data.user;
+}
+
+// Use an isolated client so creating a new admin never replaces the current
+// administrator's session in this browser.
+export async function createAdminAuthUser(email, password) {
+  if (!supabaseUrl || !supabaseKey) throw new Error('Supabase is not configured.');
+  const authClient = createClient(supabaseUrl, supabaseKey, {
+    auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false },
+  });
+  const { data, error } = await authClient.auth.signUp({ email: email.trim().toLowerCase(), password });
+  if (error) throw error;
+  return data;
+}
+
 export async function hasAdminAccess() {
   if (!supabase) throw new Error('Supabase is not configured.');
   const { data, error } = await supabase.rpc('is_active_admin');

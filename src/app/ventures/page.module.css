@@ -86,6 +86,11 @@
   color: #fff;
 }
 
+.toggleBtn:not(.active) {
+  border: 1px solid var(--color-accent);
+  color: var(--color-accent);
+}
+
 .togglePill {
   position: absolute;
   top: var(--space-1);
@@ -483,7 +488,7 @@
     width: 100%;
     padding: var(--space-3);
     background: var(--color-bg-secondary);
-    border: 1px solid rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--color-accent);
     border-radius: var(--radius-md);
   }
 

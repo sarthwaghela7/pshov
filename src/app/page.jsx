@@ -478,13 +478,11 @@ export default function HomePage() {
         <div className="container">
           <div className={styles.founderInner}>
             <div className={styles.founderContent}>
-              <SectionLabel>The Person Behind This</SectionLabel>
-              <AnimatedText
-                text="I am Pratap Sonkar."
-                as="h2"
-                animation="words"
-                nowrap
-              />
+              <div className={styles.founderHeading}>
+                <SectionLabel>The Person Behind This</SectionLabel>
+              </div>
+              <div className={styles.founderDetails}>
+              <AnimatedText text="I am Pratap Sonkar." as="h2" animation="words" nowrap />
               <motion.div
                 className={styles.founderDivider}
                 initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, scaleX: 0 }}
@@ -510,6 +508,7 @@ export default function HomePage() {
                   </Button>
                 </Link>
               </motion.div>
+              </div>
             </div>
             <motion.div
               className={styles.founderVisual}
@@ -520,8 +519,8 @@ export default function HomePage() {
               <div className={styles.founderGlow} />
               <div className={styles.founderRing} aria-hidden="true" />
               <img
-                src="/images/pratap-outdoor.jpg"
-                alt="Pratap Sonkar outdoors"
+                src="/images/white_bg..jpeg"
+                alt="Pratap Sonkar"
                 className={styles.founderPhoto}
               />
               <div className={styles.founderChip} style={{ '--chip-x': '-8%', '--chip-y': '12%' }}>

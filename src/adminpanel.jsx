@@ -25,6 +25,8 @@ import {
   saveContactSettings,
   signIn,
   signOut,
+  requestPasswordReset,
+  createAdminAuthUser,
   saveAdminAccess,
   setAdminAccess as setAdminAccessStatus,
   updateAdminCredentials,
@@ -63,6 +65,13 @@ function adminAccessErrorMessage(error) {
   return error?.message || "Could not update admin access.";
 }
 
+function authErrorMessage(error) {
+  if (error?.code === "invalid_credentials" || error?.message?.toLowerCase().includes("invalid login credentials")) {
+    return "Email or password is incorrect. Create or reset this user's password in Supabase Authentication, then sign in with that exact email and password.";
+  }
+  return adminAccessErrorMessage(error);
+}
+
 export default function AdminPanel() {
   const [type, setType] = useState("ventures");
   const [items, setItems] = useState([]);
@@ -75,6 +84,7 @@ export default function AdminPanel() {
   const [accountSettings, setAccountSettings] = useState({ email: "", password: "", confirmPassword: "" });
   const [adminAccess, setAdminAccess] = useState([]);
   const [newAdminEmail, setNewAdminEmail] = useState("");
+  const [newAdminPassword, setNewAdminPassword] = useState("");
 
   useEffect(() => {
     async function restoreSession() {
@@ -180,13 +190,19 @@ export default function AdminPanel() {
 
   async function handleAdminAccessSubmit(event) {
     event.preventDefault();
+    if (newAdminPassword && newAdminPassword.length < 8) {
+      setMessage("Use a temporary password of at least 8 characters.");
+      return;
+    }
     setBusy(true);
     setMessage("");
     try {
       await saveAdminAccess(newAdminEmail);
+      if (newAdminPassword) await createAdminAuthUser(newAdminEmail, newAdminPassword);
       setNewAdminEmail("");
+      setNewAdminPassword("");
       await loadAdminAccess();
-      setMessage("Admin access granted.");
+      setMessage(newAdminPassword ? "Admin account created and access granted. Share the temporary password securely." : "Admin access granted.");
     } catch (error) {
       setMessage(adminAccessErrorMessage(error));
     } finally {
@@ -261,7 +277,24 @@ export default function AdminPanel() {
       }
       setUser(result.data.user);
     } catch (error) {
-      setMessage(adminAccessErrorMessage(error));
+      setMessage(authErrorMessage(error));
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function handlePasswordReset() {
+    if (!credentials.email) {
+      setMessage('Enter your email address first, then select Reset password.');
+      return;
+    }
+    setBusy(true);
+    setMessage('');
+    try {
+      await requestPasswordReset(credentials.email);
+      setMessage('If this email has an account, a password-reset link has been sent. Open it in this browser.');
+    } catch (error) {
+      setMessage(authErrorMessage(error));
     } finally {
       setBusy(false);
     }
@@ -305,6 +338,7 @@ export default function AdminPanel() {
               {busy ? "Please wait..." : "Sign in"}{" "}
               <ArrowUpRight size={17} />
             </button>
+            <button type="button" className={styles.textButton} onClick={handlePasswordReset} disabled={busy}>Reset password</button>
           </form>
           {message && (
             <p className={styles.message} role="alert">
@@ -421,7 +455,11 @@ export default function AdminPanel() {
                   Email address
                   <input type="email" required value={newAdminEmail} placeholder="admin@example.com" onChange={(event) => setNewAdminEmail(event.target.value)} />
                 </label>
-                <p className={styles.authIntro}>Granting access allows this email to use the admin panel after it signs in with its own registered Supabase account.</p>
+                <label>
+                  Temporary password <small>Optional for an existing Supabase user.</small>
+                  <input type="password" minLength="8" value={newAdminPassword} placeholder="Create a new admin account" onChange={(event) => setNewAdminPassword(event.target.value)} />
+                </label>
+                <p className={styles.authIntro}>Add an existing user with their email alone, or enter a temporary password to create a new Supabase Auth account and grant access in one step.</p>
                 <div className={styles.formActions}>
                   <button className={styles.primaryButton} disabled={busy}>{busy ? "Saving..." : "Grant access"} <ArrowUpRight size={17} /></button>
                 </div>

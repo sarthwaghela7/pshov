@@ -753,7 +753,7 @@
   gap: var(--space-2);
   font-size: var(--text-base);
   font-weight: var(--weight-semibold);
-  color: var(--color-text-primary);
+  color: var(--color-accent);
   margin-top: auto;
   padding-top: var(--space-2);
   transition: gap var(--duration-fast) var(--ease-out-expo);
@@ -994,6 +994,13 @@
   gap: var(--space-4);
 }
 
+.founderHeading,
+.founderDetails {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
 .founderBody {
   font-size: var(--text-base);
   line-height: var(--leading-relaxed);
@@ -1034,7 +1041,7 @@
   aspect-ratio: 1;
   height: auto;
   object-fit: cover;
-  object-position: center 35%;
+  object-position: center top;
   border-radius: 50%;
   border: 1px solid rgba(30, 58, 95, 0.14);
   box-shadow: var(--shadow-xl);
@@ -1288,7 +1295,7 @@
   .heroContentGrid {
     grid-template-columns: 1fr;
     grid-template-rows: auto auto auto;
-    row-gap: var(--space-6);
+    row-gap: var(--space-3);
     min-width: 0;
     max-width: 100%;
     flex: none;
@@ -1336,6 +1343,7 @@
     width: 72%;
     aspect-ratio: 1;
     transform: translateX(-50%);
+    z-index: -2;
     border: 1px solid rgba(3, 58, 124, 0.14);
     border-radius: 50%;
     background:
@@ -1352,7 +1360,7 @@
     bottom: 1.5%;
     left: 13%;
     height: 1rem;
-    z-index: -1;
+    z-index: -2;
     border-radius: 50%;
     background: rgba(0, 0, 0, 0.2);
     filter: blur(12px);
@@ -1364,6 +1372,7 @@
     height: 100%;
     object-position: bottom center;
     filter: drop-shadow(0 1.25rem 1.4rem rgba(0, 0, 0, 0.2));
+    mix-blend-mode: normal;
   }
 
   .heroDotGrid {
@@ -1375,7 +1384,7 @@
   .heroLeft {
     grid-row: 1;
     transform: none;
-    margin-bottom: var(--space-2);
+    margin-bottom: 0;
   }
 
   .heroTagline {
@@ -1392,9 +1401,13 @@
     transform: none;
   }
 
-  .founderVisual {
-    order: -1;
-  }
+  .founderContent { display: contents; }
+
+  .founderHeading { order: 0; }
+
+  .founderVisual { order: 1; }
+
+  .founderDetails { order: 2; }
 
   .heroRightTitle {
     white-space: normal;
@@ -1568,7 +1581,7 @@
 
   .heroContentGrid {
     grid-template-rows: auto auto auto;
-    row-gap: var(--space-5);
+    row-gap: var(--space-2);
   }
 
   .heroLeft,

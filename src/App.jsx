@@ -10,6 +10,7 @@ import AboutPage from '@/app/about/page.jsx';
 import VenturesPage from '@/app/ventures/page.jsx';
 import ContactPage from '@/app/contact/page.jsx';
 import AdminPanel from '@/adminpanel';
+import ResetPassword from '@/resetpassword';
 
 const pageTitles = {
   '/': 'Pratap Sonkar | P.Sonkar House Of Ventures, Bangalore',
@@ -31,7 +32,10 @@ function PageTitle() {
 
 export default function App() {
   const location = useLocation();
+  const isPasswordReset = new URLSearchParams(window.location.search).get('reset') === 'password';
   const isAdmin = location.pathname.startsWith('/admin');
+
+  if (isPasswordReset) return <ResetPassword />;
 
   if (isAdmin) {
     return <><PageTitle /><Routes><Route path="/admin" element={<AdminPanel />} /><Route path="*" element={<Navigate to="/admin" replace />} /></Routes></>;
