@@ -197,12 +197,14 @@ export default function AdminPanel() {
     setBusy(true);
     setMessage("");
     try {
-      await saveAdminAccess(newAdminEmail);
       if (newAdminPassword) await createAdminAuthUser(newAdminEmail, newAdminPassword);
+      await saveAdminAccess(newAdminEmail);
       setNewAdminEmail("");
       setNewAdminPassword("");
       await loadAdminAccess();
-      setMessage(newAdminPassword ? "Admin account created and access granted. Share the temporary password securely." : "Admin access granted.");
+      setMessage(newAdminPassword
+        ? "Admin account created and access granted. Ask the new admin to confirm the email Supabase sent, then sign in with the temporary password."
+        : "Admin access granted to the existing account.");
     } catch (error) {
       setMessage(adminAccessErrorMessage(error));
     } finally {
@@ -459,7 +461,7 @@ export default function AdminPanel() {
                   Temporary password <small>Optional for an existing Supabase user.</small>
                   <input type="password" minLength="8" value={newAdminPassword} placeholder="Create a new admin account" onChange={(event) => setNewAdminPassword(event.target.value)} />
                 </label>
-                <p className={styles.authIntro}>Add an existing user with their email alone, or enter a temporary password to create a new Supabase Auth account and grant access in one step.</p>
+                <p className={styles.authIntro}>For an existing Supabase user, enter their email only. To create a new account, add a temporary password; the new admin must confirm the email from Supabase before signing in.</p>
                 <div className={styles.formActions}>
                   <button className={styles.primaryButton} disabled={busy}>{busy ? "Saving..." : "Grant access"} <ArrowUpRight size={17} /></button>
                 </div>

@@ -119,6 +119,12 @@ export async function createAdminAuthUser(email, password) {
   });
   const { data, error } = await authClient.auth.signUp({ email: email.trim().toLowerCase(), password });
   if (error) throw error;
+  // With email confirmation enabled, Supabase returns an empty identities list
+  // when sign-up is attempted for an email that already has an Auth account.
+  // Surface that case instead of reporting that a new account was created.
+  if (data.user && Array.isArray(data.user.identities) && data.user.identities.length === 0) {
+    throw new Error('An account already exists for this email. Leave the temporary password blank to grant that user admin access.');
+  }
   return data;
 }
 
